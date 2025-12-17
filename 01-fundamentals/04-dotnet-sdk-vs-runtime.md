@@ -12,7 +12,6 @@ The **.NET SDK** is used during **development** to build and compile your code i
 
 - **SDK**: Contains everything needed to build applications, including compilers for C#, F#, and VB.NET, as well as tools like `dotnet` CLI.
   - Example: When you run `dotnet build`, the SDK compiles your code into an intermediate format called Intermediate Language (IL).
-  
 - **Runtime**: Executes compiled .NET applications. It includes components like the Common Language Runtime (CLR), which handles memory management, garbage collection, and JIT compilation.
 
 ## 4. Practical examples
@@ -44,7 +43,6 @@ Explanation:
 ## 5. Common mistakes & pitfalls
 
 - **Installing the full SDK in production environments**: Many developers mistakenly install the entire .NET SDK on production servers, which is unnecessary and increases attack surface.
-  
 - **Missing runtime components**: Deploying an app without the appropriate runtime version can lead to runtime errors or compatibility issues.
 
 ## 6. Best practices & recommendations

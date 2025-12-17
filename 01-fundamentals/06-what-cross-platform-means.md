@@ -39,8 +39,6 @@ Explanation:
 
 - The `Path.Combine` method automatically adapts to the operating system's file path conventions, demonstrating how .NET handles cross-platform differences.
 
----
-
 ## 5. Common mistakes & pitfalls
 
 - **Assuming all features work identically**: Some APIs (e.g., Windows-specific UI controls) may not be available on Linux or macOS.

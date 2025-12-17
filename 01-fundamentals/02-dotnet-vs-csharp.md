@@ -4,8 +4,6 @@
 
 Many developers, especially beginners, often get confused between **.NET**, **C#**, and **F#** because these terms are frequently used interchangeably or in the same context. This confusion can lead to misunderstandings about what they're learning or working with, which is why it's crucial to clarify their differences early on.
 
----
-
 ## 2. Core concept (simple explanation)
 
 - **.NET**: A **framework and runtime environment** that provides tools, libraries, and services for building applications.
@@ -22,7 +20,6 @@ These are not interchangeable terms but rather components of a larger ecosystem.
   - Tools like the CLI (`dotnet`), IDEs (Visual Studio, VS Code), and more.
 
 - **C#** is a language that runs on top of .NET. It's designed to be object-oriented and modern, making it ideal for building applications in this ecosystem.
-  
 - **F#** is another language in the .NET ecosystem but focuses on functional programming paradigms, which can be useful for certain types of projects like data science or financial systems.
 
 ## 4. Practical examples
@@ -67,10 +64,8 @@ Explanation:
 1. **Confusing .NET with C#:**
    - Many beginners think ".NET" refers to just the language (C#), but it's actually a broader framework.
    - This misunderstanding can lead to confusion when learning or troubleshooting issues.
-
 2. **Ignoring F#'s existence:**
    - Some developers focus solely on C# and miss out on other languages like F#, which might be better suited for specific tasks.
-
 3. **Assuming .NET is only about web development:**
    - While .NET is great for building web apps, it also supports desktop, mobile, IoT, and more.
 
@@ -92,8 +87,6 @@ Explanation:
 - **F#** is another language in the .NET ecosystem, focused on functional programming.
 - Learning just C# without understanding `.NET` can lead to confusion about what you're actually working with.
 - Modern .NET versions (e.g., .NET 6+) are powerful and flexible, supporting multiple languages and use cases.
-
----
 
 ### Why C# is dominant
 

@@ -74,11 +74,9 @@ Explanation:
 1. **.NET Framework (Legacy):**
    - **Purpose:** Built for Windows applications with deep integration into the OS.
    - **Limitations:** Not cross-platform, difficult to update or modify without affecting other apps.
-
 2. **.NET Core:**
    - **Why it existed:** To address the limitations of .NET Framework by providing a modular, open-source, and cross-platform runtime.
    - **Key features:** Designed for modern development needs like cloud computing, containerization, and multi-platform support.
-
 3. **.NET 5+ (Unified Ecosystem):**
    - **Why it unified everything:** To simplify the ecosystem by combining .NET Core and .NET Framework into a single, cohesive platform.
    - **Benefits:** Single runtime for all scenarios, better performance, and easier maintenance.
@@ -88,7 +86,6 @@ Explanation:
 - **.NET Framework to .NET Core:**
   - The need for cross-platform support (e.g., Linux, macOS).
   - Modular design to allow independent updates without breaking existing applications.
-  
 - **.NET Core to .NET 5+:**
   - Simplification of the ecosystem by unifying multiple versions into a single platform.
   - Better performance and consistency across all scenarios.
