@@ -116,5 +116,3 @@ Explanation:
 - You’ll be able to build most applications effectively since C# is the primary language for `.NET`.
 - However, you might miss out on opportunities to use other languages like F#, which could be better suited for certain tasks.
 - Understanding the broader ecosystem (e.g., libraries, tools) will still help you become a more well-rounded developer.
-
-This chapter aims to clear up confusion and set beginners on the right path from day one.
