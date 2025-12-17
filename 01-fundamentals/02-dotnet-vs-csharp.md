@@ -1,12 +1,12 @@
-# 02. .NET vs C# vs F# (and why people confuse them)
+# 02: .NET vs C# vs F# (and why people confuse them)
 
-#### **1. What problem does this solve?**
+## 1. What problem does this solve?
 
 Many developers, especially beginners, often get confused between **.NET**, **C#**, and **F#** because these terms are frequently used interchangeably or in the same context. This confusion can lead to misunderstandings about what they're learning or working with, which is why it's crucial to clarify their differences early on.
 
 ---
 
-#### **2. Core concept (simple explanation)**
+## 2. Core concept (simple explanation)
 
 - **.NET**: A **framework and runtime environment** that provides tools, libraries, and services for building applications.
 - **C#**: A **programming language** designed specifically for .NET development.
@@ -14,9 +14,7 @@ Many developers, especially beginners, often get confused between **.NET**, **C#
 
 These are not interchangeable terms but rather components of a larger ecosystem. Understanding their roles helps developers navigate the landscape more effectively.
 
----
-
-#### **3. How it works (under the hood)**
+## 3. How it works (under the hood)
 
 - **.NET** is an open-source framework that includes:
   - The **runtime environment** (e.g., .NET Core, .NET 5+, etc.) for executing applications.
@@ -27,9 +25,7 @@ These are not interchangeable terms but rather components of a larger ecosystem.
   
 - **F#** is another language in the .NET ecosystem but focuses on functional programming paradigms, which can be useful for certain types of projects like data science or financial systems.
 
----
-
-#### **4. Practical examples**
+## 4. Practical examples
 
 Let’s look at how these components work together:
 
@@ -47,6 +43,7 @@ class Program
 ```
 
 Explanation:
+
 - This is a basic `C#` program.
 - It runs on the `.NET runtime`, which handles memory management and execution.
 
@@ -61,12 +58,11 @@ let main argv =
 ```
 
 Explanation:
+
 - This is a basic `F#` program.
 - It also runs on the `.NET runtime`, demonstrating that multiple languages can use the same ecosystem.
 
----
-
-#### **5. Common mistakes & pitfalls**
+## 5. Common mistakes & pitfalls
 
 1. **Confusing .NET with C#:**
    - Many beginners think ".NET" refers to just the language (C#), but it's actually a broader framework.
@@ -78,24 +74,18 @@ Explanation:
 3. **Assuming .NET is only about web development:**
    - While .NET is great for building web apps, it also supports desktop, mobile, IoT, and more.
 
----
-
-#### **6. Best practices & recommendations**
+## 6. Best practices & recommendations
 
 - **Learn the ecosystem first:** Understand that `.NET` is a framework, while `C#` and `F#` are languages.
 - **Choose the right language:** Use C# for most general-purpose tasks, but consider F# if you need functional programming features or work with data-heavy applications.
 - **Stay updated:** .NET evolves rapidly. Focus on modern versions (e.g., .NET 6+) to take advantage of new features and improvements.
 
----
-
-#### **7. When NOT to use this**
+## 7. When NOT to use this
 
 - If you're building an application that doesn't require the full capabilities of `.NET`, consider other ecosystems or platforms.
 - For example, if you're writing a small script in Python, there's no need to bring in the entire .NET framework unless it provides specific benefits.
 
----
-
-#### **8. Summary**
+## 8. Summary
 
 - **.NET** is a framework and runtime environment for building applications.
 - **C#** is a programming language designed for .NET development (object-oriented).
@@ -105,13 +95,13 @@ Explanation:
 
 ---
 
-### Why C# is dominant:
+### Why C# is dominant
 
 1. **Widespread adoption:** C# has been the primary language for .NET since its inception, making it the go-to choice for most developers.
 2. **Tooling support:** Visual Studio and other IDEs provide excellent tooling specifically tailored to C#, making development faster and more efficient.
 3. **Community & resources:** There’s a vast ecosystem of libraries, tutorials, and documentation focused on C#.
 
-### What happens if you “learn .NET” but only know C#:
+### What happens if you “learn .NET” but only know C#
 
 - You’ll be able to build most applications effectively since C# is the primary language for `.NET`.
 - However, you might miss out on opportunities to use other languages like F#, which could be better suited for certain tasks.
