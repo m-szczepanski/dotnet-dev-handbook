@@ -1,4 +1,3 @@
-
 # 09. .NET Versions & LTS Explained
 
 ## 1. What problem does this solve?
@@ -48,6 +47,6 @@ Avoid using very old or unsupported .NET versions, as they lack critical updates
 
 ## 8. Summary
 
-- Choose LTS versions (e.g., `.net8.0`) for stability in production.
+- Choose LTS versions (e.g., `net8.0`) for stability in production.
 - Use STS versions only when you need the latest features but can handle frequent updates.
 - Always prioritize security and compatibility by staying up-to-date with patch releases.

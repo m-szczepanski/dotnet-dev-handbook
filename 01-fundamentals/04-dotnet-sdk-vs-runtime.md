@@ -1,4 +1,4 @@
-# 04: .NET SDK vs Runtime (Critical Concept)**
+# 04: .NET SDK vs Runtime (Critical Concept)
 
 ## 1. What problem does this solve?
 
@@ -51,8 +51,8 @@ Explanation:
 - Install the **Runtime** on production servers to run compiled .NET apps efficiently.
   
   ```bash
-  # Example: Installing .NET Runtime (no SDK)
-  dotnet-sdk-7.0-win-x64.exe /install /quiet /norestart /InstallDir:"C:\Program Files\dotnet" /NoPathRegistration /NoWindowsDesktopRuntime
+  # Example (Windows): Installing .NET Runtime only (no SDK) using winget
+  winget install --id Microsoft.DotNet.Runtime.8 -e
   ```
 
 ## 7. When NOT to use this

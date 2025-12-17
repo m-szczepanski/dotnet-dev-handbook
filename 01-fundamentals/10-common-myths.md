@@ -23,7 +23,7 @@ Many misconceptions about .NET exist, but they often stem from outdated informat
 
 Here’s how you can debunk these myths:
 
-```csharp
+```bash
 // Example: Running a .NET app on Linux (debunking "Windows-only" myth)
 $ dotnet run
 ```
