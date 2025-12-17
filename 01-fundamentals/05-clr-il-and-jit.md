@@ -49,7 +49,7 @@ Explanation:
   
   ```csharp
   // Good practice: Let the JIT optimize this loop
-  for (int i = 0; i < 10_000_000; i++)
+  for (int i = 0; i < 10000000; i++)
   {
       // Perform some computation
   }

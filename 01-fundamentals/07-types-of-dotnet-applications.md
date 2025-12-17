@@ -44,7 +44,9 @@ public class WeatherForecastController : ControllerBase
         });
     }
 }
+```
 
+```xaml
 // Example: WPF Desktop app (XAML)
 <Window x:Class="WpfApp.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"

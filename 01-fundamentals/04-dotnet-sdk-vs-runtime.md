@@ -27,11 +27,13 @@ class Program
         Console.WriteLine("Hello, World!");
     }
 }
+```
 
-// Command to build (SDK):
+```bash
+# Command to build (SDK):
 dotnet build
 
-// Command to run (Runtime):
+# Command to run (Runtime):
 dotnet run
 ```
 

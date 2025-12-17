@@ -20,6 +20,7 @@ Developers often misunderstand the concept of "cross-platform" in .NET, leading 
 ```csharp
 // Example: Cross-platform file path handling
 using System;
+using System.IO;
 
 class Program
 {

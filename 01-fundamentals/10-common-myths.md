@@ -8,7 +8,7 @@ Dispelling common myths about .NET helps developers build confidence in the plat
 
 Many misconceptions about .NET exist, but they often stem from outdated information or misunderstandings. Understanding these myths can help you avoid pitfalls and leverage .NET’s full potential.
 
-## 3. How it works (under the hood)
+## 3. Common myths debunked
 
 - **Myth 1: “.NET is slow”**  
   Modern .NET implementations are highly optimized, especially with features like JIT compilation and garbage collection improvements.
@@ -24,7 +24,7 @@ Many misconceptions about .NET exist, but they often stem from outdated informat
 Here’s how you can debunk these myths:
 
 ```bash
-// Example: Running a .NET app on Linux (debunking "Windows-only" myth)
+# Example: Running a .NET app on Linux (debunking "Windows-only" myth)
 $ dotnet run
 ```
 
