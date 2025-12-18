@@ -4,7 +4,7 @@
 
 Many developers, especially beginners, often get confused between **.NET**, **C#**, and **F#** because these terms are frequently used interchangeably or in the same context. This confusion can lead to misunderstandings about what they're learning or working with, which is why it's crucial to clarify their differences early on.
 
-## 2. Core concept (simple explanation)
+## 2. Core concept
 
 - **.NET**: A **framework and runtime environment** that provides tools, libraries, and services for building applications.
 - **C#**: A **programming language** designed specifically for .NET development.
@@ -12,7 +12,7 @@ Many developers, especially beginners, often get confused between **.NET**, **C#
 
 These are not interchangeable terms but rather components of a larger ecosystem. Understanding their roles helps developers navigate the landscape more effectively.
 
-## 3. How it works (under the hood)
+## 3. How it works
 
 - **.NET** is an open-source framework that includes:
   - The **runtime environment** (e.g., .NET Core, .NET 5+, etc.) for executing applications.

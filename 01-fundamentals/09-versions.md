@@ -4,11 +4,11 @@
 
 Choosing the right .NET version for your project is crucial because it affects stability, security, and compatibility with other tools or libraries.
 
-## 2. Core concept (simple explanation)
+## 2. Core concept
 
 .NET releases come in two flavors: Long-Term Support (LTS) versions and Short-Term Support (STS) versions. LTS versions are stable and recommended for production projects, while STS versions offer the latest features but require more frequent updates.
 
-## 3. How it works (under the hood)
+## 3. How it works
 
 - **LTS**: These versions receive security patches and bug fixes for a longer period (typically 2–3 years). They’re ideal for long-term projects.
 - **STS**: These versions are released more frequently, offering new features but with shorter support windows.

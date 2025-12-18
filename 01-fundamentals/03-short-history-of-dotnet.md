@@ -2,13 +2,13 @@
 
 ## 1. What problem does this solve?
 
-Understanding the evolution of .NET helps developers grasp why certain decisions were made and how the ecosystem has grown over time. This context is essential for making informed choices about which version or framework to use in modern development.
+Understanding the evolution of .NET helps developers make informed decisions about which version to use for their projects, especially when considering cross-platform support, performance requirements, and compatibility with existing systems.
 
-## 2. Core concept (simple explanation)
+## 2. Core concept
 
 The history of .NET can be summarized as a journey from a monolithic, Windows-centric platform (.NET Framework) to a modular, cross-platform solution (.NET Core), culminating in the unified and modern `.NET 5+` ecosystem.
 
-## 3. How it works (under the hood)
+## 3. How it works
 
 - **.NET Framework**: A complete runtime environment designed primarily for Windows, with tight integration between the framework and operating system.
 - **.NET Core**: A modular, cross-platform version of .NET that decouples the runtime from specific platforms, making it more flexible and portable.

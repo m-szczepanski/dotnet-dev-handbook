@@ -4,7 +4,7 @@
 
 Dispelling common myths about .NET helps developers build confidence in the platform and make informed decisions when choosing tools or technologies.
 
-## 2. Core concept (simple explanation)
+## 2. Core concept
 
 Many misconceptions about .NET exist, but they often stem from outdated information or misunderstandings. Understanding these myths can help you avoid pitfalls and leverage .NET’s full potential.
 
@@ -32,19 +32,15 @@ Explanation:
 
 - This shows that .NET apps can run seamlessly on non-Windows platforms.
 
-## 5. Common mistakes & pitfalls
-
-Believing these myths might lead developers to avoid .NET altogether, missing out on its powerful features and ecosystem.
-
-## 6. Best practices & recommendations
+## 5. Best practices & recommendations
 
 Stay informed about the latest .NET developments and don’t let outdated information influence your decisions.
 
-## 7. When NOT to use this
+## 6. When NOT to use this
 
 Don’t rely solely on hearsay or old blog posts when evaluating .NET’s capabilities. Always check official documentation for the most accurate information.
 
-## 8. Summary
+## 7. Summary
 
 - Myth 1: ".NET is slow" – Modern implementations are highly optimized.
 - Myth 2: ".NET is Windows-only" – Supports multiple platforms.

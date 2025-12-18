@@ -4,11 +4,11 @@
 
 Understanding how .NET code runs under the hood helps developers optimize their applications for performance and reliability without getting bogged down in low-level implementation details.
 
-## 2. Core concept (simple explanation)
+## 2. Core concept
 
 When you write C# code, it doesn't run directly on your machine's CPU. Instead, it goes through several steps: compilation to Intermediate Language (IL), Just-In-Time (JIT) compilation to native code, and execution by the Common Language Runtime (CLR).
 
-## 3. How it works (under the hood)
+## 3. How it works
 
 1. **C# → IL**: When you compile your C# code using the SDK, it gets converted into an intermediate format called Intermediate Language (IL). This is a platform-independent representation of your code.
 2. **IL → JIT**: At runtime, the CLR uses the Just-In-Time (JIT) compiler to convert IL into native machine code specific to your CPU architecture.

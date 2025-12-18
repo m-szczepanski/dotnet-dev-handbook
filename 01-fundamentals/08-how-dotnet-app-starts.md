@@ -4,11 +4,11 @@
 
 When you write and run a .NET application, understanding how it starts up can help you debug issues more effectively and prepare for more advanced topics like ASP.NET Core hosting.
 
-## 2. Core concept (simple explanation)
+## 2. Core concept
 
 A .NET application begins execution at an entry point, typically the `Main` method. The runtime then loads your code into memory and executes it according to a specific hosting model.
 
-## 3. How it works (under the hood)
+## 3. How it works
 
 - **Entry Point**: Every .NET application has a starting point called the "entry point." For console apps or libraries, this is usually the `Main` method.
 - **Hosting Model**: The runtime uses a hosting model to manage how your app runs. In simple terms, it sets up the environment and ensures everything works smoothly.

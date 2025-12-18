@@ -8,7 +8,7 @@
 
 Before .NET, developers often had to rewrite or recompile their applications for different platforms. .NET provides a unified framework that abstracts away platform-specific details, making development faster and more efficient.
 
-## 2. Core concept (simple explanation)
+## 2. Core concept
 
 .NET is an open-source, cross-platform developer platform created by Microsoft. It includes tools, libraries, and runtime environments to build various types of applications, from web apps to desktop apps and cloud services.
 
@@ -16,7 +16,7 @@ Before .NET, developers often had to rewrite or recompile their applications for
 
 Think of .NET as a toolbox for developers. Just like a carpenter uses different tools to build furniture, developers use .NET’s tools (like C#, F#, or Visual Studio) to build software.
 
-## 3. How it works (under the hood)
+## 3. How it works
 
 .NET consists of several key components:
 
@@ -80,10 +80,10 @@ While .NET is versatile, there are scenarios where it might not be the best choi
 
 ## 8. Summary
 
-- .NET is a cross-platform development framework for building various types of applications.
-- It includes tools, libraries, and runtime environments to simplify development.
-- Always use the latest version and leverage its cross-platform capabilities.
-- Be mindful of performance-critical scenarios where alternatives may be more suitable.
+- .NET is a cross-platform developer platform.
+- It simplifies building applications for multiple platforms.
+- Key components include the runtime, SDK, libraries, and supported languages like C#.
+- Always use modern versions of .NET to benefit from the latest features and performance improvements.
 
 ### Key Points
 

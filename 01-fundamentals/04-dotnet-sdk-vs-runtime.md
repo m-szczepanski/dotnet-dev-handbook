@@ -1,14 +1,14 @@
-# 04: .NET SDK vs Runtime (Critical Concept)
+# 04: .NET SDK vs Runtime
 
 ## 1. What problem does this solve?
 
 Developers often confuse the .NET SDK with the .NET Runtime, leading to unnecessary installations or missing essential components for development or production environments.
 
-## 2. Core concept (simple explanation)
+## 2. Core concept
 
 The **.NET SDK** is used during **development** to build and compile your code into an executable format. It includes tools like compilers, NuGet package management, and debugging support. The **.NET Runtime**, on the other hand, is what runs your compiled application in a production environment.
 
-## 3. How it works (under the hood)
+## 3. How it works
 
 - **SDK**: Contains everything needed to build applications, including compilers for C#, F#, and VB.NET, as well as tools like `dotnet` CLI.
   - Example: When you run `dotnet build`, the SDK compiles your code into an intermediate format called Intermediate Language (IL).

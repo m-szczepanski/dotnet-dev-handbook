@@ -4,11 +4,11 @@
 
 Developers often misunderstand the concept of "cross-platform" in .NET, leading to unrealistic expectations about portability and compatibility across different operating systems.
 
-## 2. Core concept (simple explanation)
+## 2. Core concept
 
 ".NET is cross-platform" means you can write code once and run it on multiple platforms like Windows, Linux, and macOS without significant changes. However, this doesn't mean every feature or API works the same way everywhere.
 
-## 3. How it works (under the hood)
+## 3. How it works
 
 - **Same Code, Different Runtime**: Your C# code is compiled into Intermediate Language (IL), which runs on the .NET Runtime specific to each platform.
   - On Windows: The runtime includes Windows-specific APIs and libraries.

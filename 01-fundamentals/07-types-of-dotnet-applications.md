@@ -4,11 +4,11 @@
 
 New developers often struggle to understand the variety of application types they can build with .NET, leading to confusion about which type is best suited for their needs.
 
-## 2. Core concept (simple explanation)
+## 2. Core concept
 
 .NET supports a wide range of application types, from simple console apps to complex web services and desktop UIs. Understanding these options helps developers choose the right approach for their projects.
 
-## 3. How it works (under the hood)
+## 3. How it works
 
 - Each type of .NET application uses different frameworks and tools:
   - Console apps rely on `System.Console` for input/output.
