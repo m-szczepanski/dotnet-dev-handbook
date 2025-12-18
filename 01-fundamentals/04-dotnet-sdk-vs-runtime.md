@@ -53,7 +53,7 @@ Explanation:
 - Install the **Runtime** on production servers to run compiled .NET apps efficiently.
   
   ```bash
-  # Example (Windows): Installing .NET Runtime only (no SDK) using winget
+  # Example (Windows): Installing .NET 8.0 Runtime (LTS) only (no SDK) using winget
   winget install --id Microsoft.DotNet.Runtime.8 -e
   ```
 

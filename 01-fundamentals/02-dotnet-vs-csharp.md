@@ -78,7 +78,7 @@ Explanation:
 ## 7. When NOT to use this
 
 - If you're building an application that doesn't require the full capabilities of `.NET`, consider other ecosystems or platforms.
-- For example, if you're writing a small script in Python, there's no need to bring in the entire .NET framework unless it provides specific benefits.
+- For example, if you're targeting a platform with limited or no `.NET` support (such as certain embedded or real-time systems) or you need a tiny, dependency-free binary, another technology stack may be more appropriate.
 
 ## 8. Summary
 

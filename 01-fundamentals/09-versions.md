@@ -10,8 +10,8 @@ Choosing the right .NET version for your project is crucial because it affects s
 
 ## 3. How it works
 
-- **LTS**: These versions receive security patches and bug fixes for a longer period (typically 2–3 years). They’re ideal for long-term projects.
-- **STS**: These versions are released more frequently, offering new features but with shorter support windows.
+- **LTS**: These versions receive security patches and bug fixes for 3 years. They’re ideal for long-term projects.
+- **STS**: These versions are released more frequently, offering new features but with shorter support windows (18 months of support).
 
 ## 4. Practical examples
 
