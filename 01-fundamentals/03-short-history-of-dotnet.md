@@ -16,7 +16,7 @@ The history of .NET can be summarized as a journey from a monolithic, Windows-ce
 
 ## 4. Practical examples
 
-The most visible change for a developer isn't the C# code—it's the Project File (.csproj). The old way was a nightmare of XML. The new way is clean and human-readable. There are code conventions changes between versions, but as can be seen the biggest difference is in the configuration aspect.
+The most visible change for a developer isn't the C# code—it's the Project File (.csproj). The old way was a nightmare of XML. The new way is clean and human-readable. There are code convention changes between versions, but as can be seen the biggest difference is in the configuration aspect.
 
 ```xml
 <!-- Legacy .NET Framework Project File -->
@@ -39,7 +39,7 @@ The most visible change for a developer isn't the C# code—it's the Project Fil
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>net9.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>

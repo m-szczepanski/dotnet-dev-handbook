@@ -36,7 +36,7 @@ Explanation:
 
 Stay informed about the latest .NET developments and don’t let outdated information influence your decisions. Don’t rely solely on hearsay or old blog posts when evaluating .NET’s capabilities; always check official documentation for the most accurate information.
 
-## 6. When NOT to use this
+## 6. How to verify information
 
 Don’t rely solely on hearsay or old blog posts when evaluating .NET’s capabilities. Always check official documentation for the most accurate information.
 
