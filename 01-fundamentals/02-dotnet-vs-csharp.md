@@ -15,9 +15,9 @@ These are not interchangeable terms but rather components of a larger ecosystem.
 ## 3. How it works
 
 - **.NET** is an open-source framework that includes:
-  - The **runtime environment** (e.g., .NET Core, .NET 5+, etc.) for executing applications.
+  - The **runtime environment** (e.g., .NET Core, .NET 6+, etc.) for executing applications.
   - Libraries and APIs to build various types of apps (web, desktop, mobile).
-  - Tools like the CLI (`dotnet`), IDEs (Visual Studio, VS Code), and more.
+  - Tools like the CLI (`dotnet`), IDEs (Visual Studio, Rider), and more.
 
 - **C#** is a language that runs on top of .NET. It's designed to be object-oriented and modern, making it ideal for building applications in this ecosystem.
 - **F#** is another language in the .NET ecosystem but focuses on functional programming paradigms, which can be useful for certain types of projects like data science or financial systems.
