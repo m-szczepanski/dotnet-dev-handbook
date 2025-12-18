@@ -17,8 +17,8 @@ Choosing the right .NET version for your project is crucial because it affects s
 
 Suppose you're starting a new project:
 
-```csharp
-// Example: Choosing .NET version in a `.csproj` file
+```xml
+<!-- Example: Choosing .NET version in a `.csproj` file -->
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <!-- Choose LTS for stability -->
