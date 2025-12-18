@@ -69,7 +69,7 @@ class Program
 
 - Always use the latest supported LTS version of .NET (for example, .NET 8).
 - Leverage cross-platform capabilities to make your applications accessible on multiple operating systems.
-- Use consistent naming conventions and follow coding standards like those in [Microsoft's C# Style Guide](https://learn.microsoft.com/dotnet/csharp/fundamentals/coding-style/naming-guidelines).
+- Use consistent naming conventions and follow coding standards like those in [Microsoft's C# Style Guide](https://learn.microsoft.com/en-us/dotnet/csharp/fundamentals/coding-style/identifier-names).
 
 ## 7. When NOT to use this
 
