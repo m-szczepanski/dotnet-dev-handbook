@@ -113,15 +113,14 @@ if (args.Length > 0)
 - **Main Method**:
   - The entry point of a C# program.
   - Declared as `static`, typically with a signature like `void Main(string[] args)`.
-  
+  > It is worth noting that in top-level statements, args is an implicitly available variable, so the developer does not need to declare it.
+
 - **Top-level Statements**:
   - Introduced in C# 9.0 to simplify small programs.
   - Automatically wrapped into a hidden class and `Main` method by the compiler.
-
 - **What the Compiler Generates**:
   - For traditional `Main`, it compiles directly as part of your program.
   - For top-level statements, the compiler generates an implicit class and `Main` method behind the scenes.
-
 - **Why Main Sometimes Isn’t Visible (with Top-level Statements)**:
   - In C# 9+, when using top-level statements, the entry point is hidden because the compiler automatically wraps your code into a generated `Main` method.
   
