@@ -10,23 +10,19 @@ Think of **classes** as the traditional way to model objects—flexible but refe
 
 ## How it works
 
-- **Classes**: Reference types stored on the heap. They are ideal for large or complex objects that need to be shared between different parts of your application.
-  
+- **Classes**: Reference types stored on the heap. They are ideal for large or complex objects that need to be shared between different parts of your application.  
   - **Memory**: Stored as a reference (address) on the stack, pointing to data on the heap.
   - **Assignment**: Assigning one class variable to another copies only the reference—both variables point to the same object.
 
 - **Structs**: Value types stored directly on the stack. They are lightweight and efficient for small, immutable data.
-
   - **Memory**: Stored inline with their actual data (on the stack or embedded in other objects).
   - **Assignment**: Assigning one struct variable to another creates a copy of its contents—changes to one do not affect the other.
 
-- **Records**: A modern construct that combines immutability and structural equality. They are reference types by default but can be configured as value semantics using `readonly` or `with`.
-
-  - **Memory**: Stored on the heap (reference type) unless explicitly marked with `[StructLayout(LayoutKind.Auto)]`.
-  - **Assignment**: By default, records behave like classes (reference-based), but they provide structural equality and immutability features.
-
+- **Records**: A modern construct that combines immutability and structural equality. By default, `record` (or `record class`) is a reference type, while `record struct` defines a value-type record.
+  - **Memory**: `record class` instances are allocated like classes (typically on the heap), while `record struct` instances are value types and are allocated like structs (inline/in containing objects or on the stack, depending on usage).
+  - **Assignment**: `record class` instances behave like classes (reference-based) and `record struct` instances behave like structs (value-based). Both support structural equality and `with` expressions for non-destructive mutation.
   > Note:
-  In modern C#, the standard way to define a record on the stack (as a value type) is to use the `record struct` keyword (introduced in C# 10), rather than using attributes to modify a `record class`.
+  In modern C#, the standard way to define a record as a value type is to use the `record struct` keyword (introduced in C# 10), rather than using attributes to modify a `record class`.
 
 ### Practical examples
 

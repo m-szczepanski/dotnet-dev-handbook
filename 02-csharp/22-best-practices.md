@@ -47,7 +47,7 @@ The first example uses ambiguous names (`clsData`, `mtdProcess`) that don’t co
 
 - **Naming:**
   - Use descriptive, meaningful names for classes, methods, variables, and parameters.
-  - Follow PascalCase for class names (e.g., `CustomerService`) and camelCase for method/variable names (e.g., `processOrder`).
+  - Follow PascalCase for class and method names (e.g., `CustomerService`, `ProcessOrder`) and camelCase for variables and parameters (e.g., `totalItems`).
   
 - **Code readability:**
   - Keep methods short and focused on a single responsibility.
@@ -71,7 +71,7 @@ The first example uses ambiguous names (`clsData`, `mtdProcess`) that don’t co
 While best practices are generally beneficial, they should not be applied rigidly. For example:
 
 - **Over-engineering:** Avoid overcomplicating simple tasks with unnecessary abstractions.
-- **Ignoring context:** Best practices may vary depending on the specific requirements of a project (e.g., performance-critical vs. maintainability-focused).
+- **Applying best practices without context:** Best practices should be adapted to the specific requirements of a project (e.g., performance-critical vs. maintainability-focused).
 
 ## Summary
 

@@ -20,7 +20,7 @@ Parameters allow methods to receive data dynamically. There are several types:
 
 - **`ref`:** Allows passing variables by reference so changes inside the method affect the original variable.
 - **`out`:** Used for output parameters that must be assigned a value before returning from the method.
-- **`in`:** Introduced in .NET 5, it allows readonly references to improve performance and safety.
+- **`in`:** Introduced in C# 7.2 (supported on .NET Framework 4.7.2, .NET Core 2.0, and later), it allows readonly references to improve performance and safety.
 
 ### Return Values
 
