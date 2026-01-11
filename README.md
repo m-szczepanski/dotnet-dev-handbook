@@ -50,6 +50,7 @@ and maybe more...
 
 This handbook is created with the help of LLMs (LM Studio / openai/gpt-oss-20b) and curated to ensure clarity, correctness, and usefulness.
 
+> If any incontinence is spotted feel free to correct it by creating a PR or raising an issue.
 ---
 
 ### Current status - work in progress
