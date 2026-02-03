@@ -37,6 +37,7 @@ Here's an example demonstrating short-lived vs long-lived objects, potential mem
 
 ```csharp
 using System;
+using System.Collections.Generic;
 using System.IO;
 
 class Program

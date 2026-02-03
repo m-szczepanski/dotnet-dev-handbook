@@ -65,16 +65,17 @@ A semaphore allows a limited number of threads to access a shared resource concu
 
 ```csharp
 private readonly SemaphoreSlim _semaphore = new(2); // Allow up to 2 concurrent accesses.
-private int sharedCounter;
 
-public async Task IncrementCounterAsync()
+public async Task ProcessResourceAsync(string resourceId)
 {
     await _semaphore.WaitAsync(); // Wait for semaphore availability.
     
     try
     {
         // Critical section: Up to 2 threads can execute this block concurrently.
-        sharedCounter++;
+        // Example: Process a resource that allows limited concurrent access
+        await Task.Delay(100); // Simulate work
+        Console.WriteLine($"Processing {resourceId}");
     }
     finally
     {
@@ -83,7 +84,7 @@ public async Task IncrementCounterAsync()
 }
 ```
 
-**Explanation**: The `SemaphoreSlim` instance allows up to two threads to enter the critical section simultaneously. Once a thread completes its work, it releases the semaphore, allowing another waiting thread to proceed.
+**Explanation**: The `SemaphoreSlim` instance allows up to two threads to enter the critical section simultaneously. Once a thread completes its work, it releases the semaphore, allowing another waiting thread to proceed. Unlike `lock`, this pattern allows controlled concurrent access, which is useful for limiting parallel operations (e.g., database connections, API rate limiting).
 
 ## Common "Gotchas"
 

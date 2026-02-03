@@ -42,10 +42,10 @@ When compiled into an assembly, the `Add` method is represented as IL. At runtim
 For example, on a 64-bit Windows system, the JIT-compiled version of `Add` might look something like this (simplified assembly pseudocode):
 
 ```assembly
-; Parameters x and y are passed in registers rdx and rcx
-mov eax, [rdx]    ; Load value of x into eax
-add eax, [rcx]     ; Add value of y to eax
-ret                 ; Return the result
+; Parameters x and y are passed in registers rcx and rdx (Windows x64 calling convention)
+mov eax, ecx      ; Load value of x (in ecx) into eax
+add eax, edx      ; Add value of y (in edx) to eax
+ret               ; Return the result in eax
 ```
 
 This native code is highly optimized for the specific hardware on which it runs.

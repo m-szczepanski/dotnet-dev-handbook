@@ -30,16 +30,19 @@ class Program
 {
     static void Main()
     {
-        // Set the garbage collection mode to Server GC (if supported)
-        if (GCSettings.IsServerGCSupported)
+        // Check if Server GC is enabled (configured via project file or runtimeconfig.json)
+        if (GCSettings.IsServerGC)
         {
-            GCSettings.LatencyMode = GCLatencyMode.SustainedHighLatency;
-            Console.WriteLine("Server GC is enabled with high latency mode.");
+            Console.WriteLine("Server GC is enabled.");
         }
         else
         {
             Console.WriteLine("Workstation GC is in use.");
         }
+
+        // Optionally adjust GC latency mode
+        GCSettings.LatencyMode = GCLatencyMode.Batch;
+        Console.WriteLine($"Current latency mode: {GCSettings.LatencyMode}");
 
         // Trigger a garbage collection manually (for demonstration purposes)
         GC.Collect();
@@ -49,7 +52,7 @@ class Program
 
 ### Explanation of the Code
 
-- **`GCSettings.IsServerGCSupported`**: Checks if Server GC is available on the current platform.
+- **`GCSettings.IsServerGC`**: Checks if Server GC is currently enabled. Server GC mode is configured in the project file (`.csproj`) or `runtimeconfig.json`, not programmatically at runtime.
 - **`GCLatencyMode.SustainedHighLatency`**: Configures the runtime to prioritize throughput over low-latency operations, suitable for server applications.
 
 ## Common "Gotchas"
