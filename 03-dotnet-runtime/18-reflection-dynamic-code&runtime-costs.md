@@ -67,7 +67,7 @@ class Program
     {
         // Create a dynamic assembly and module
         AssemblyName assemblyName = new AssemblyName("DynamicAssembly");
-        AssemblyBuilder assemblyBuilder = AppDomain.CurrentDomain.DefineDynamicAssembly(assemblyName, AssemblyBuilderAccess.Run);
+        AssemblyBuilder assemblyBuilder = AssemblyBuilder.DefineDynamicAssembly(assemblyName, AssemblyBuilderAccess.Run);
         ModuleBuilder moduleBuilder = assemblyBuilder.DefineDynamicModule("DynamicModule");
 
         // Define a new type dynamically

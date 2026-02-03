@@ -2,7 +2,7 @@
 
 ## What problem does this solve?
 
-Developers often wonder how their high-level C# code transforms into a running application that interacts with the operating system and hardware. Understanding this process is crucial for debugging issues, optimizing performance, and making informed decisions about architecture and design. This subchapter provides an end-to-end mental model of how .NET code becomes a running process, breaking it down into clear steps while highlighting where errors can occur.
+Developers often wonder how their high-level C# code transforms into a running application that interacts with the operating system and hardware. Understanding this process is crucial for debugging issues, optimizing performance, and making informed decisions about architecture and design. This chapter provides an end-to-end mental model of how .NET code becomes a running process, breaking it down into clear steps while highlighting where errors can occur.
 
 ## Core concept
 

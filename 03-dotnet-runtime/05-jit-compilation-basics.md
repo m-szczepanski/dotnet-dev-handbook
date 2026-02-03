@@ -80,7 +80,7 @@ To reduce startup latency:
 
 1. Use Ahead-of-Time (AOT) compilation for specific methods or assemblies.
 2. Profile your application to identify hot paths that benefit most from optimization.
-3. Leverage tools like .NET's `nngen` to generate native images ahead of time.
+3. Leverage tools like .NET's `ngen` to generate native images ahead of time.
 
 ## Common "Gotchas"
 

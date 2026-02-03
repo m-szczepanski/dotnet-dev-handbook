@@ -100,7 +100,7 @@ var obj = new MyClass { MyValue = 42 };
 ## Opinionated Advice
 
 - **Profile before optimizing:** Don’t assume GC is slow; measure performance issues first.
-- **Use async only where it makes sense:** Async is great for I/O-bound tasks but may introduce complexity if overused.
+- **Use async only where it makes sense:** Prefer it for I/O-bound or naturally asynchronous operations; for purely CPU-bound work, focus on good algorithms and let the thread pool handle execution.
 - **Be mindful of memory allocation patterns:** Understand when value types are on the stack vs. heap to avoid unexpected behavior.
 
 ## When These Concepts Become Anti-Patterns
