@@ -25,6 +25,7 @@ Once the process starts, the host is initialized. The host manages the lifecycle
 ```csharp
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
 public class Program
 {

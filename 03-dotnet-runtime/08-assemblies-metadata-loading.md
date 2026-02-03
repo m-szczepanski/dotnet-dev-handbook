@@ -96,9 +96,13 @@ class Program
 
         // Get and instantiate a type from the loaded assembly
         Type calculatorType = assembly.GetType("MyLibrary.Calculator");
-        dynamic calculatorInstance = Activator.CreateInstance(calculatorType);
+        object calculatorInstance = Activator.CreateInstance(calculatorType);
         
-        Console.WriteLine($"Result: {calculatorInstance.Add(5, 3)}");
+        // Use reflection explicitly to invoke the Add method
+        MethodInfo addMethod = calculatorType.GetMethod("Add");
+        int result = (int)addMethod.Invoke(calculatorInstance, new object[] { 5, 3 });
+        
+        Console.WriteLine($"Result: {result}");
     }
 }
 ```

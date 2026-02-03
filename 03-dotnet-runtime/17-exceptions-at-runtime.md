@@ -101,9 +101,9 @@ catch (IndexOutOfRangeException)
 }
 
 // Better approach - use condition checks
-if (Array.IndexOf(someArray, value) >= 0)
+int index = Array.IndexOf(someArray, value);
+if (index >= 0)
 {
-    int index = Array.IndexOf(someArray, value);
     result = someArray[index];
 }
 else

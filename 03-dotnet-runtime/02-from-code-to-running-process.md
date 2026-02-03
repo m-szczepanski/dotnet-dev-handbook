@@ -77,11 +77,11 @@ public class Program
      ```
 
 2. **IL → JIT**: At runtime, when `Main` is called, the CLR uses the JIT compiler to convert this IL into native machine code specific to your CPU.
-   - For example, on an x86 system, the JIT might generate assembly instructions like:
+   - For example, on an x64 system, the JIT might generate assembly instructions like:
 
      ```asm
-     mov eax, 10          ; Load value of 'x' (10) into register
-     push offset string    ; Push address of formatted string onto stack
+     mov ecx, 10          ; Load value 10 into ecx register
+     lea rdx, [string]    ; Load address of formatted string into rdx
      call Console.WriteLine ; Call WriteLine method
      ```
 

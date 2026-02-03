@@ -52,29 +52,39 @@ for (int i = 0; i < 1000; i++)
 #### Example (Startup vs Throughput)
 
 ```csharp
-// Good: Lazy loading assemblies in a web app
-public class Startup
+// Good: Lazy loading for startup optimization
+public class ReportGenerator
 {
-    public void ConfigureServices(IServiceCollection services)
+    private readonly Lazy<ExpensiveService> _expensiveService;
+
+    public ReportGenerator()
     {
-        // Load only necessary assemblies at startup
-        services.AddControllers();
-        services.AddSingleton<MyService>();
+        // Service is only initialized when first accessed
+        _expensiveService = new Lazy<ExpensiveService>(
+            () => new ExpensiveService());
+    }
+
+    public void GenerateReport()
+    {
+        // Service instantiated only when needed
+        _expensiveService.Value.Process();
     }
 }
 
-// Bad: Loading all assemblies upfront, even unused ones
-public class Startup
+// Bad: Eager initialization increases startup time
+public class ReportGenerator
 {
-    public void ConfigureServices(IServiceCollection services)
+    private readonly ExpensiveService _expensiveService;
+
+    public ReportGenerator()
     {
-        services.AddControllers();
-        services.AddDbContext<MyDbContext>(); // Unnecessary if not used immediately
-        services.AddIdentity(); // Only needed for authentication flows
+        // Service created immediately at startup, even if never used
+        _expensiveService = new ExpensiveService();
     }
+}
 ```
 
-**Explanation:** By deferring the loading of assemblies and components that aren't immediately required, you can reduce startup time without compromising functionality.
+**Explanation:** Using `Lazy<T>` defers expensive object creation until actually needed, reducing startup time. The "bad" example eagerly creates objects at startup, even if they're never used.
 
 ### 3. Measuring Before Tuning
 
