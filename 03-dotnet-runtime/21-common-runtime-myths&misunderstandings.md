@@ -1,4 +1,4 @@
-# 21: Common Runtime Myths & Misunderstandings
+# 21: Common Runtime Myths and Misunderstandings
 
 ## What problem does this solve?
 
