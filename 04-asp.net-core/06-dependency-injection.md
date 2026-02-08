@@ -45,7 +45,7 @@ public class SmtpEmailService : IEmailService
 ### Registering Services in Startup.cs (or Program.cs)
 
 ```csharp
-// In ASP.NET Core 3.x and later, use Program.cs or Startup.ConfigureServices
+// In .NET 6 (ASP.NET Core 6) and later, use the minimal hosting model in Program.cs
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddTransient<IEmailService, SmtpEmailService>();
@@ -125,7 +125,7 @@ Dependency Injection in ASP.NET Core provides a structured way to manage depende
 
 1. **Use Constructor Injection**: Always inject dependencies through constructors to make them explicit.
 2. **Understand Service Lifetimes**:
-   - Transient: New instance per request.
+   - Transient: New instance per resolution (each time it's requested).
    - Scoped: Single instance per HTTP request (or other scope).
    - Singleton: Single shared instance across all requests.
 3. **Avoid Circular Dependencies**: Refactor code if two classes depend on each other to eliminate direct dependencies.

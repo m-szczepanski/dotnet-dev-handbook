@@ -1,4 +1,4 @@
-# 03: Program.cs and the Hosting Model
+# 04: Program.cs and the Hosting Model
 
 ## What problem does this solve?
 
@@ -29,8 +29,9 @@ ASP.NET Core supports two primary hosting models:
 
 ### Key Components
 
-- **`CreateHostBuilder`**: Configures the host builder to set up services and middleware.
-- **`ConfigureServices`**: Registers services for dependency injection.
+- **`WebApplication.CreateBuilder` (minimal hosting, .NET 6+)**: Creates the application builder and configures services and middleware directly in `Program.cs`.
+- **`CreateHostBuilder` (older templates / non-minimal hosting)**: Configures the generic host and is typically used together with a `Startup` class.
+- **`ConfigureServices`**: Registers services for dependency injection (either in `Startup.cs` for traditional projects or inline in `Program.cs` for minimal APIs).
 - **`Configure` (or `app.Run`)**: Defines how HTTP requests are handled by the application.
 
 #### Minimal APIs vs. Startup.cs

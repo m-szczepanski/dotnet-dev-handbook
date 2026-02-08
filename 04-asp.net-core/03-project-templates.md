@@ -30,7 +30,7 @@ Think of project templates as a "starter kit" for your application. Just like us
 
 ## Code Example
 
-```csharp
+```text
 // Creating a new ASP.NET Core Web App using a template
 dotnet new webapp --name MyWebApp --framework net8.0
 
