@@ -10,7 +10,7 @@ Think of building an ASP.NET Core application like constructing a house. Just as
 
 ## Mechanics Relevant to Developers
 
-### 1. Separation of Concerns
+### Separation of Concerns
 
 ASP.NET Core encourages separation of concerns through its modular architecture. Each component (e.g., controllers, services, models) should have a single responsibility:
 
@@ -18,14 +18,14 @@ ASP.NET Core encourages separation of concerns through its modular architecture.
 - **Services**: Implement business logic.
 - **Models**: Represent data structures.
 
-### 2. Dependency Injection
+### Dependency Injection
 
 Dependency injection (DI) is a core feature in ASP.NET Core that promotes loose coupling between components. By injecting dependencies instead of creating them directly, developers can write more testable and maintainable code:
 
 - Use DI to manage service lifetimes (`Transient`, `Scoped`, or `Singleton`).
 - Avoid static classes for stateful operations.
 
-### 3. Middleware Pipeline
+### Middleware Pipeline
 
 The middleware pipeline is a sequence of handlers that process incoming requests before they reach the controller. It's crucial to order middleware correctly and avoid unnecessary layers:
 

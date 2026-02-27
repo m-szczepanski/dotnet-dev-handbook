@@ -10,7 +10,7 @@ Think of HTTP as a language spoken between servers and clients. Status codes are
 
 ## Mechanics Relevant to Developers
 
-### 1. HTTP Status Codes
+### HTTP Status Codes
 
 HTTP status codes are three-digit numbers grouped into categories:
 
@@ -25,7 +25,7 @@ In ASP.NET Core, you can return these codes using the `StatusCode` or `StatusCod
 return StatusCode(201); // 201 Created
 ```
 
-### 2. HTTP Headers
+### HTTP Headers
 
 Headers provide metadata about requests and responses. Common headers include:
 
@@ -34,7 +34,7 @@ Headers provide metadata about requests and responses. Common headers include:
 
 In ASP.NET Core, you can access or set headers using the `HttpContext.Request.Headers` and `HttpContext.Response.Headers` properties.
 
-### 3. Content Negotiation
+### Content Negotiation
 
 ASP.NET Core automatically handles content negotiation based on request headers like `Accept`. This determines how data is serialized (e.g., JSON, XML) in responses.
 

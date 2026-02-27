@@ -22,7 +22,7 @@ Hosted services are background tasks that run within the lifecycle of an ASP.NET
   - `StopAsync`: Called when the application is shutting down. Use this to gracefully stop background operations.
 - **Task Execution**: Background services often use a loop or timer-based approach to perform periodic work, ensuring they don't block the main thread.
 
-## Key Considerations
+### Key Considerations
 
 - **Thread Safety**: Ensure that shared resources are accessed safely (e.g., using locks).
 - **Graceful Shutdown**: Implement proper cleanup logic in `StopAsync` to avoid data loss.
