@@ -16,7 +16,7 @@ Think of `Program.cs` as the "conductor" of your ASP.NET Core app. It sets the s
 - **Hosting Configuration**: Defines how the app is hosted (e.g., Kestrel, IIS).
 - **Service Registration**: Sets up dependency injection (DI) and other services.
 
-#### Hosting Models
+### Hosting Models
 
 ASP.NET Core supports two primary hosting models:
 
@@ -34,7 +34,7 @@ ASP.NET Core supports two primary hosting models:
 - **`ConfigureServices`**: Registers services for dependency injection (either in `Startup.cs` for traditional projects or inline in `Program.cs` for minimal APIs).
 - **`Configure` (or `app.Run`)**: Defines how HTTP requests are handled by the application.
 
-#### Minimal APIs vs. Startup.cs
+### Minimal APIs vs. Startup.cs
 
 - In minimal API projects, configuration is done directly in `Program.cs`.
 - Traditional projects use a separate `Startup.cs` file to handle configuration and startup logic.

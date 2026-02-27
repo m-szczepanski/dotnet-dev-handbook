@@ -101,14 +101,14 @@ public class Startup
 - **Basic Logging and Error Handling**: For simple applications, default logging middleware (e.g., `UseDeveloperExceptionPage` or `UseExceptionHandler`) may suffice without custom implementations.
 - **Standard Authentication**: If your application uses standard authentication schemes like JWT or OAuth, leveraging built-in middleware (`UseAuthentication`, `UseAuthorization`) is often sufficient.
 
-### Boundaries of Overkill
+## Boundaries of Overkill
 
 - **Over-Complicating the Pipeline**:
   - Adding too many layers of middleware can make debugging and maintenance difficult. Keep the pipeline lean unless there's a clear need for additional complexity.
 - **Custom Middleware for Trivial Tasks**:
   - Avoid creating custom middleware for tasks that could be handled more efficiently elsewhere (e.g., simple validation logic in controllers).
 
-### Summary
+## Summary
 
 The middleware pipeline is a powerful tool for organizing and executing HTTP request/response processing in ASP.NET Core. By breaking down complex workflows into modular components, developers can build scalable, maintainable applications without sacrificing flexibility or performance.
 
