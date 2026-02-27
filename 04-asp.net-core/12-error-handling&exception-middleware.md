@@ -33,10 +33,7 @@ In ASP.NET Core, middleware forms a pipeline where each component processes requ
 // Startup.cs or Program.cs (ASP.NET Core 8+)
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers();
-
-// Add global exception handling middleware
-builder.Services.AddMvc()
+builder.Services.AddControllers()
     .AddJsonOptions(options =>
         options.JsonSerializerOptions.WriteIndented = true); // Optional: Pretty-print JSON
 
@@ -56,7 +53,7 @@ app.UseExceptionHandler(errorApp =>
             {
                 Status = StatusCodes.Status500InternalServerError,
                 Title = "An unexpected error occurred.",
-                Detail = exception.Message, // Log this instead of exposing to users in production!
+                Detail = "An unexpected error occurred. Please try again later.", // In production, log 'exception' details on the server instead of returning them to the client.
                 Type = "https://tools.ietf.org/html/rfc7231#section-6.6.1"
             };
 
@@ -76,7 +73,7 @@ app.Run();
 
 - **`UseExceptionHandler`**: This middleware catches unhandled exceptions and runs the provided delegate to handle them.
 - **Problem Details**: The `ProblemDetails` class is used to provide a standardized JSON response that includes status codes, titles, and details about the error. In production, you should avoid exposing detailed exception messages (`exception.Message`) directly to users for security reasons.
-- **Middleware Placement**: Placing this middleware after routing ensures it catches any exceptions thrown by controllers or other middleware.
+- **Middleware Placement**: Placing this middleware early in the pipeline ensures it catches any exceptions thrown by routing, authentication, controllers, or other middleware.
 
 ## Common "Gotchas"
 
@@ -88,7 +85,7 @@ app.Run();
 3. **Overriding Specific Error Codes**:
    - Be cautious when overriding HTTP status codes for specific exceptions. For example, returning a 200 OK response for an error might confuse clients or monitoring tools.
 4. **Middleware Order**:
-   - Placing exception-handling middleware too early in the pipeline can prevent other middleware from functioning correctly. Ensure it is added after routing and authentication but before terminal middleware like `app.Run()`.
+   - Exception-handling middleware should be registered early in the pipeline (before routing and authentication) so it can catch exceptions from all downstream middleware and endpoints. Placing it too late can prevent it from catching exceptions thrown by earlier middleware.
 
 ## Opinionated Advice
 

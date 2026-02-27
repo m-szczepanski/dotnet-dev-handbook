@@ -31,6 +31,7 @@ Hosted services are background tasks that run within the lifecycle of an ASP.NET
 ## Code Example
 
 ```csharp
+using System;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using System.Threading;

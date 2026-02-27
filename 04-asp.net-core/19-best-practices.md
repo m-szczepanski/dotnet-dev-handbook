@@ -30,7 +30,7 @@ Dependency injection (DI) is a core feature in ASP.NET Core that promotes loose 
 The middleware pipeline is a sequence of handlers that process incoming requests before they reach the controller. It's crucial to order middleware correctly and avoid unnecessary layers:
 
 - Place authentication middleware early in the pipeline.
-- Use error-handling middleware at the end.
+- Register error-handling middleware early in the pipeline so it can catch exceptions from later middleware and endpoints.
 
 ## Code Example
 
@@ -51,7 +51,7 @@ public class OrderService : IOrderService
     {
         try
         {
-            var products = await _productRepo.GetProductsByIds(order.ProductIds);
+            var products = await _productRepo.GetProductsByIdsAsync(order.ProductIds);
             // Process the order...
             return new PlaceOrderResult { Success = true };
         }

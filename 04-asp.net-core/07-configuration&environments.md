@@ -42,9 +42,9 @@ Configuration values are resolved using a hierarchy:
 #### Example: Using Environment Variables
 
 ```csharp
-// Accessing environment variables in code
-var env = builder.Environment;
-string connectionString = env.GetRequiredConfiguration("ConnectionStrings:Default");
+// Accessing configuration (e.g., from environment variables) in code
+var configuration = builder.Configuration;
+string connectionString = configuration.GetConnectionString("Default");
 ```
 
 ### Configuration Binding
@@ -112,7 +112,8 @@ Here's a complete example of configuring an application for different environmen
     }
   },
   "ConnectionStrings": {
-    "Default": "Server=prod-db.example.com;Database=ProdDB;User Id=appuser;Password=securepassword;"
+    "Default": "Server=prod-db.example.com;Database=ProdDB;User Id=appuser;Password={your-password-here};"
+    // IMPORTANT: Never commit secrets to source control. Use Azure Key Vault, environment variables, or user secrets instead.
   },
   "AppSettings": {
     "Environment": "Production"
@@ -131,8 +132,8 @@ string envName = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ??
 builder.Configuration.AddJsonFile($"appsettings.{envName}.json", optional: true, reloadOnChange: true);
 
 // Bind configuration to strongly-typed objects
-var databaseSettings = builder.Configuration.GetSection("AppSettings").Get<DatabaseSettings>();
-builder.Services.AddSingleton(databaseSettings);
+var appSettings = builder.Configuration.GetSection("AppSettings").Get<AppSettings>();
+builder.Services.AddSingleton(appSettings);
 
 var app = builder.Build();
 ```

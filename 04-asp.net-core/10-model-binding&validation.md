@@ -45,7 +45,7 @@ public class Product
     [Required]
     public string Name { get; set; }
 
-    [Range(0, 100)]
+    [Range(0, 1000)]
     public decimal Price { get; set; }
 }
 

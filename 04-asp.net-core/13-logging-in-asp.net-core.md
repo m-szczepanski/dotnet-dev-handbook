@@ -90,7 +90,7 @@ public class Result
 1. **Overusing Log Levels**:
    - Misusing log levels (e.g., logging critical business logic as `Debug`) can lead to noisy logs or missed critical issues.
 2. **Missing Exception Details**:
-   - Forcing developers to manually include exception details in log messages instead of using the built-in `{ex}` placeholder.
+   - Forcing developers to manually concatenate exception details into log messages instead of passing the exception as the first argument to `LogError`, `LogWarning`, etc., which allows the logger to capture the stack trace and exception data correctly.
 3. **Performance Overhead**:
    - Logging at high verbosity levels (e.g., `Debug`) can introduce performance overhead, especially if logs are written frequently or to slow sinks like databases.
 4. **Ignoring Log Filters**:
