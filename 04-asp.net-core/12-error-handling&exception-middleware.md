@@ -110,7 +110,7 @@ Error handling in ASP.NET Core involves integrating exception-handling middlewar
 
 ### Take-home Value
 
-1. **Use Middleware Wisely**: Integrate exception-handling middleware into the pipeline after routing but before terminal components.
+1. **Use Middleware Wisely**: Integrate exception-handling middleware early in the pipeline (before routing and authentication) so it can catch exceptions from all downstream middleware and endpoints.
 2. **Log Everything**: Always log exceptions with a proper logging framework, even if you return generic error messages to users.
 3. **Standardize Responses**: Use `ProblemDetails` for consistent JSON responses that include status codes and user-friendly messages.
 4. **Avoid Sensitive Information**: Do not expose internal exception details directly to users in production environments.

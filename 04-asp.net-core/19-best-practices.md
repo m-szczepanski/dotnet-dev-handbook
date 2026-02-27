@@ -90,7 +90,7 @@ builder.Services.AddScoped<IOrderService, OrderService>();
 ## When Defaults Are Enough
 
 - **Default Middleware Pipeline**: For most applications, the default middleware pipeline (e.g., exception handling, static file serving) is sufficient. Customizations should only be made when necessary.
-- **Basic Authentication**: If your application doesn't require complex authentication schemes, using basic authentication or JWT tokens with minimal configuration can suffice.
+- **Authentication Defaults**: For most server-rendered applications, cookie-based authentication is a sensible default; for APIs, bearer tokens (e.g., JWT) are commonly used. Basic Authentication should generally be avoided and only considered for very narrow scenarios (such as simple integrations or internal tools), always strictly over TLS (HTTPS) and with short-lived, carefully managed credentials.
 
 ## Boundaries of Overkill
 

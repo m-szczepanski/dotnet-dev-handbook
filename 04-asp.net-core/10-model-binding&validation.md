@@ -57,10 +57,8 @@ public class ProductsController : ControllerBase
     [HttpPost]
     public IActionResult Create(Product product)
     {
-        if (!ModelState.IsValid) // Check for validation errors
-        {
-            return BadRequest(ModelState);
-        }
+        // With [ApiController], invalid models automatically result in a 400 response.
+        // At this point, ModelState is valid and the product can be processed.
 
         // Process the valid product object (e.g., save to database)
         return Ok("Product created successfully.");
@@ -81,7 +79,7 @@ public class ProductsController : ControllerBase
 - **Model Binding**: When the client sends a JSON payload in the request body, ASP.NET Core automatically maps it to the `Product` model.
 - **Validation**:
   - The `[Required]` attribute ensures that the `Name` property is not null or empty.
-  - The `[Range(0, 100)]` attribute validates that the `Price` is between 0 and 100 (inclusive).
+  - The `[Range(0, 1000)]` attribute validates that the `Price` is between 0 and 1000 (inclusive).
   - If any validation rule fails, `ModelState.IsValid` will be `false`, and error details can be retrieved from `ModelState`.
 
 ## Common "Gotchas"

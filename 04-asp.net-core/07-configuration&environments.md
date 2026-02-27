@@ -57,6 +57,11 @@ public class DatabaseSettings
     public string ConnectionString { get; set; }
     public int CommandTimeout { get; set; }
 }
+
+public class AppSettings
+{
+    public string Environment { get; set; }
+}
 ```
 
 ## Code Example
@@ -113,7 +118,6 @@ Here's a complete example of configuring an application for different environmen
   },
   "ConnectionStrings": {
     "Default": "Server=prod-db.example.com;Database=ProdDB;User Id=appuser;Password={your-password-here};"
-    // IMPORTANT: Never commit secrets to source control. Use Azure Key Vault, environment variables, or user secrets instead.
   },
   "AppSettings": {
     "Environment": "Production"
@@ -121,15 +125,14 @@ Here's a complete example of configuring an application for different environmen
 }
 ```
 
+> **Important**: Never commit secrets (passwords, API keys, connection strings) to source control. Use Azure Key Vault, environment variables, or user secrets instead.
+
 ### Program.cs (Startup Configuration)
 
 ```csharp
 var builder = WebApplication.CreateBuilder(args);
-
-// Load configuration from appsettings.json and environment-specific files
-builder.Configuration.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
-string envName = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Production";
-builder.Configuration.AddJsonFile($"appsettings.{envName}.json", optional: true, reloadOnChange: true);
+// Note: WebApplication.CreateBuilder already loads appsettings.json and
+// appsettings.{Environment}.json by default — no need to add them explicitly.
 
 // Bind configuration to strongly-typed objects
 var appSettings = builder.Configuration.GetSection("AppSettings").Get<AppSettings>();

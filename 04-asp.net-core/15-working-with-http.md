@@ -61,7 +61,7 @@ public class ProductsController : ControllerBase
         }
 
         // Add a custom header to the response
-        Response.Headers.Add("X-Product-Availability", "In Stock");
+        Response.Headers.Append("X-Product-Availability", "In Stock");
 
         return Ok(product); // 200 OK with JSON content
     }
