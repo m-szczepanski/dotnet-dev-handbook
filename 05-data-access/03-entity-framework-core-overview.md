@@ -1,4 +1,4 @@
-# 03: Entity Framework Core overview
+# 03: Entity Framework Core Overview
 
 ## What problem does this solve?
 
@@ -34,6 +34,8 @@ EF Core supports multiple database providers (e.g., SQL Server, PostgreSQL, SQLi
 ## Code Example
 
 ```csharp
+using Microsoft.EntityFrameworkCore;
+
 // Define an entity class
 public class Product
 {

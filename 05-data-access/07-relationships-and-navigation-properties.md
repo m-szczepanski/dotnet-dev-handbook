@@ -13,8 +13,8 @@ Imagine you're building an online bookstore where each `Book` can have multiple 
 ### Entity Relationships in .NET
 
 - **One-to-One**: A single entity is linked to another (e.g., `User` and `Profile`).
-- **One-to-Many**: One entity has multiple related entities (e.g., `Book` and its `Authors`).
-- **Many-to-Many**: Entities are interconnected through a junction table (e.g., `Students` and `Courses`).
+- **One-to-Many**: One entity has multiple related entities (e.g., `Blog` and its `Posts`).
+- **Many-to-Many**: Entities are interconnected through a junction table (e.g., `Book` and `Author`, or `Students` and `Courses`).
 
 ### Navigation Properties
 
@@ -29,7 +29,7 @@ public class Book
     public int Id { get; set; }
     public string Title { get; set; }
 
-    // Navigation Property: Many Authors for one Book
+   // Navigation Property: Many-to-many relationship with Author
     public ICollection<Author> Authors { get; set; } = new List<Author>();
 }
 
@@ -38,16 +38,15 @@ public class Author
     public int Id { get; set; }
     public string Name { get; set; }
 
-    // Navigation Property: Back-reference to the Book
-    public int BookId { get; set; }
-    public Book Book { get; set; }
+   // Navigation Property: Many-to-many relationship with Book
+   public ICollection<Book> Books { get; set; } = new List<Book>();
 }
 ```
 
 ### Explanation
 
 - **`Authors` in `Book`**: This is a navigation property that represents the collection of authors for this book. It allows you to fetch all authors associated with a specific book.
-- **`BookId` and `Book` in `Author`**: These represent the foreign key (`BookId`) and the back-reference (`Book`). They enable navigating from an author to their corresponding book.
+- **`Books` in `Author`**: This navigation property represents all books written by an author, enabling traversal in the opposite direction.
 
 ## Common "Gotchas"
 
@@ -55,7 +54,7 @@ public class Author
    - Eager loading fetches related data upfront, which can lead to unnecessary database queries if not needed.
    - Lazy loading loads related entities on demand but may cause performance issues due to the N+1 query problem (multiple round trips to the database). In EF Core, lazy loading must be explicitly enabled and is unavailable with no-tracking queries.
 2. **Circular References**:
-   - When navigation properties are bidirectional (e.g., `Book` has a collection of `Authors`, and each `Author` references its `Book`), it can lead to infinite recursion during serialization unless properly handled.
+   - When navigation properties are bidirectional (e.g., `Book` has a collection of `Authors`, and each `Author` has a collection of `Books`), it can lead to infinite recursion during serialization unless properly handled.
 3. **Unintended Data Fetching**:
    - Loading entities with deep relationships without proper configuration can result in fetching more data than needed, impacting performance.
 

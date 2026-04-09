@@ -43,6 +43,8 @@ ORM acts as a translator, converting your object-based requests into SQL queries
 Here's a simple example using Entity Framework Core, one of the most popular ORMs in .NET:
 
 ```csharp
+using Microsoft.EntityFrameworkCore;
+
 // Define an entity class (Book)
 public class Book
 {

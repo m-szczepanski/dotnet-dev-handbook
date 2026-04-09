@@ -24,6 +24,8 @@ Think of `DbContext` as a **rented car** for your application's interaction with
 ## Code Example
 
 ```csharp
+using Microsoft.EntityFrameworkCore;
+
 // Registering DbContext as a scoped service in Program.cs (or Startup.cs)
 builder.Services.AddDbContext<MyDbContext>(options =>
   options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
