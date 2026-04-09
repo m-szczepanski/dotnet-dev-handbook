@@ -18,7 +18,7 @@ ORM acts as a translator, converting your object-based requests into SQL queries
 
 ## Mechanics Relevant to Developers
 
-## How ORM Works
+### How ORM Works
 
 1. Mapping Objects to Tables:
    - Each class in your code (e.g., `Book`, `Author`) is mapped to a corresponding table in the database.
@@ -109,7 +109,7 @@ public class Program
 ## Common "Gotchas"
 
 1. **N+1 Queries**:
-   - When fetching related data (e.g., all books for each author), ensure you use `Include` or lazy loading properly to avoid multiple database roundtrips.
+    - When fetching related data (e.g., all books for each author), prefer eager loading (`Include`), projection (`Select`), or explicit loading to avoid multiple database roundtrips. Lazy loading is opt-in and can easily introduce N+1 queries if used carelessly.
 2. **Over-Querying**:
    - Be mindful of what data you're retrieving. Fetching unnecessary fields can lead to performance issues.
 3. **Complex Mapping**:

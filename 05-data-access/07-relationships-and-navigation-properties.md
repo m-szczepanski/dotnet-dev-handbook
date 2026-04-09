@@ -6,7 +6,7 @@ In data-driven applications, managing relationships between entities (e.g., one-
 
 ## The Big Idea
 
-Imagine you're building an online bookstore where each `Book` can have multiple `Authors`. Instead of manually writing SQL queries or managing IDs, think of relationships as "smart links" that automatically connect related entities. Navigation properties act like shortcuts to navigate these links seamlessly—fetching authors for a book or books by an author becomes as simple as accessing a property.
+Imagine you're building an online bookstore where each `Book` can have multiple `Authors`. Instead of manually writing SQL queries or managing IDs, think of relationships as "smart links" that automatically connect related entities. Navigation properties act like shortcuts to navigate these links seamlessly—fetching authors for a book (or the book for an author) becomes as simple as accessing a property.
 
 ## Mechanics Relevant to Developers
 
@@ -53,7 +53,7 @@ public class Author
 
 1. **Eager vs Lazy Loading**:
    - Eager loading fetches related data upfront, which can lead to unnecessary database queries if not needed.
-   - Lazy loading loads related entities on demand but may cause performance issues due to the N+1 query problem (multiple round trips to the database).
+   - Lazy loading loads related entities on demand but may cause performance issues due to the N+1 query problem (multiple round trips to the database). In EF Core, lazy loading must be explicitly enabled and is unavailable with no-tracking queries.
 2. **Circular References**:
    - When navigation properties are bidirectional (e.g., `Book` has a collection of `Authors`, and each `Author` references its `Book`), it can lead to infinite recursion during serialization unless properly handled.
 3. **Unintended Data Fetching**:
@@ -67,7 +67,7 @@ public class Author
 
 ## When Defaults Are Enough
 
-- **Simple Relationships**: For straightforward one-to-one or one-to-many scenarios where no complex logic is involved, default navigation properties and lazy loading are often sufficient.
+- **Simple Relationships**: For straightforward one-to-one or one-to-many scenarios where no complex logic is involved, default navigation properties with explicit/eager loading are often sufficient.
 - **Small Datasets**: In applications with small datasets, the overhead of managing relationships might not be significant enough to warrant advanced techniques.
 
 ## Boundaries of Overkill
@@ -86,4 +86,4 @@ Relationships and navigation properties are powerful tools for modeling real-wor
 3. **Be Mindful of Loading Strategies**: Avoid unnecessary data fetching by using explicit loading when appropriate.
 4. **Handle Circular References**: Be cautious with bidirectional navigation properties to prevent infinite recursion during serialization.
 5. **Optimize for Performance**: Use projections or explicit loading in complex scenarios to minimize database load and memory usage.
-6. **Keep It Simple When Possible**: For straightforward relationships, default behaviors (e.g., lazy loading) are often sufficient; avoid over-engineering unless necessary.
+6. **Keep It Simple When Possible**: For straightforward relationships, default navigation setup plus clear loading choices is often sufficient; avoid over-engineering unless necessary.

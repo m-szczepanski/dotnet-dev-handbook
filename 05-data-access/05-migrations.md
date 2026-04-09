@@ -22,7 +22,8 @@ Migrations in .NET (e.g., Entity Framework Core) are essentially versioned scrip
 
 1. **Add-Migration**: Creates a new migration file based on changes in your data model.
 2. **Update-Database**: Applies pending migrations to the database.
-3. **Remove-Migration**: Reverts the last applied migration (if needed).
+3. **Remove-Migration**: Removes the last migration from the project (typically before it has been applied to the database).
+4. **Rollback an Applied Migration**: Use `Update-Database <PreviousMigrationName>` (or a down script) to move the database schema back.
 
 ## Code Example
 

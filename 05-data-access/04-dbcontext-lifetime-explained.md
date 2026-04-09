@@ -26,7 +26,7 @@ Think of `DbContext` as a **rented car** for your application's interaction with
 ```csharp
 // Registering DbContext as a scoped service in Program.cs (or Startup.cs)
 builder.Services.AddDbContext<MyDbContext>(options =>
-    options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+  options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 // Using DbContext within a controller or service
 public class MyService
@@ -79,7 +79,7 @@ public class MyService
 - **Overcomplicating Lifetime Management**:
   - Adding custom lifetime management or manual disposal logic can introduce unnecessary complexity. Stick to dependency injection unless you have a compelling reason to deviate.
 - **Using DbContext in Long-Lived Background Jobs**:
-  - In scenarios where `DbContext` is used outside of HTTP requests (e.g., background jobs), consider using transient lifetimes instead of scoped ones, as the default scoped lifetime might not be appropriate.
+  - In scenarios where `DbContext` is used outside of HTTP requests (e.g., background jobs), create a DI scope per job execution or use `IDbContextFactory<TContext>` instead of changing the global registration to transient.
 
 ## Summary
 
@@ -91,5 +91,5 @@ Properly managing the lifecycle of `DbContext` is essential for building robust 
 2. **Let DI Handle Disposal**: Rely on dependency injection for creating and disposing of `DbContext` instances, avoiding manual management unless necessary.
 3. **Avoid Sharing Instances**: Do not reuse the same `DbContext` instance across multiple requests or operations to prevent data inconsistencies.
 4. **Monitor Performance**: Profile your application to identify potential issues related to how `DbContext` is used and adjust as needed.
-5. **Be Cautious with Transient Lifetimes**: Use transient lifetimes only when necessary (e.g., in background jobs), as scoped lifetimes are generally preferred for web applications.
+5. **Handle Background Work Correctly**: For background jobs, create scopes explicitly or use `IDbContextFactory<TContext>` instead of switching the app-wide `DbContext` lifetime to transient.
 6. **Keep It Simple**: Stick to the default behavior unless you have a specific reason to customize lifetime management, avoiding unnecessary complexity.
