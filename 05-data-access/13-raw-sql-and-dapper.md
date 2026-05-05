@@ -22,7 +22,7 @@ You still get navigation (the data), but without the overhead of pre‑written r
 ### Dapper vs EF
 
 - **EF**: Generates strongly‑typed queries with a mapping layer that hides the raw SQL.
-- **Dapper**: Executes a single SQL string and lets you map the result rows manually, giving you full control over column names and data types.
+- **Dapper**: Executes a SQL string and maps result rows to your types (usually POCOs). The mapping is convention‑based and mismatches show up at runtime.
 
 ### Dynamic Query Building
 
@@ -33,8 +33,8 @@ You still get navigation (the data), but without the overhead of pre‑written r
 
 ### Result Mappings
 
-- Return objects are not strongly typed by Dapper; you must create anonymous types or POCOs that match the SQL columns.
-- You can map directly to simple value classes if needed.
+- Dapper can map **strongly‑typed** results to POCOs (e.g., `QueryAsync<Customer>()`) as long as column names match your members (by convention).
+- You can also map to tuples, primitives, or `dynamic` when a fixed shape isn’t practical.
 
 ## Code Example
 
@@ -47,9 +47,9 @@ static async Task<List<Customer>> GetCustomersAsync(IDbConnection db)
         FROM Customers
         WHERE City = @City";
 
-  // Dapper: parameterized query (no string concatenation)
-  var customers = await db.QueryAsync<Customer>(sql, new { City = "Seattle" });
-  return customers.ToList();
+    // Dapper: parameterized query (no string concatenation)
+    var customers = await db.QueryAsync<Customer>(sql, new { City = "Seattle" });
+    return customers.ToList();
 }
 ```
 
@@ -62,7 +62,7 @@ static async Task<List<Customer>> GetCustomersAsync(IDbConnection db)
 ## Common "Gotchas"
 
 1. **SQL Injection Risk** – Always parameterise queries when using raw SQL; Dapper will not protect you from un‑parameterised strings.
-2. **No Strongly‑Typed Result Mapping** – Dapper returns anonymous types or POCOs that must match the query columns exactly; mismatches can cause runtime errors or silent data loss.
+2. **Runtime mapping errors** – Dapper maps to your POCOs by convention; column/member mismatches show up at runtime (nulls/defaults or exceptions depending on the scenario).
 3. **Misunderstanding connection pooling** – Prefer opening connections late and closing early; ADO.NET connection pooling makes this cheap. Avoid keeping a single `IDbConnection` open and shared across threads.
 4. **Ignoring Transaction Scoping** – When using raw SQL in a transaction context, ensure the connection is opened inside a `using` block that matches the transaction scope.
 

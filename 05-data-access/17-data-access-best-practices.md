@@ -46,10 +46,12 @@ Imagine the database as a library with thousands of books (records).
 
 ```csharp
 // Production-ready example using EF Core 8+ (Modern .NET)
+public sealed record ProductListItem(int Id, string Name);
+
 public interface IProductRepository
 {
     Task<Product> FindAsync(int id);
-    Task<IEnumerable<Product>> GetAllAsync();
+    Task<IReadOnlyList<ProductListItem>> GetAllAsync();
 }
 
 public class ProductRepository : IProductRepository
@@ -68,11 +70,12 @@ public class ProductRepository : IProductRepository
             .SingleOrDefaultAsync(p => p.Id == id);
     }
 
-    public async Task<IEnumerable<Product>> GetAllAsync()
+    public async Task<IReadOnlyList<ProductListItem>> GetAllAsync()
     {
-        // Project only needed columns for performance
+        // Project only needed columns for performance (prefer DTO/read models over partial entities)
         return await _context.Products
-            .Select(p => new Product { Id = p.Id, Name = p.Name })
+            .AsNoTracking()
+            .Select(p => new ProductListItem(p.Id, p.Name))
             .ToListAsync();
     }
 }
@@ -82,7 +85,7 @@ public class ProductRepository : IProductRepository
 
  **Interface definition**: Keeps the contract decoupled from EF Core internals.  
  **EF Core query pattern**: Uses `.Include` for eager loading of related entities (`PurchaseOrder`).  
- **Projection optimization**: Returns only `Id` and `Name` instead of the full entity, reducing payload size.  
+ **Projection optimization**: Returns only `Id` and `Name` as a read model (`ProductListItem`), reducing payload size and avoiding partially-populated entities.  
  **Lifetime**: In typical ASP.NET Core apps, `ApplicationDbContext` is registered as *scoped* and is disposed by the DI container. The repository should not dispose an injected context.
 
 ## Common "Gotchas"

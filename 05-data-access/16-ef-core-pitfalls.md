@@ -27,7 +27,7 @@ Think of your EF Core queries as a recipe. A recipe can look perfect on paper bu
 // Production-ready example that demonstrates a common pitfall
 public async Task<Blog> GetLatestBlogAsync()
 {
-    // ❌ Incorrect: uses Includes that may cause N+1 queries
+    // Pitfall: eager loading can create very large result sets (and may lead to unexpected query shapes)
     return await _context.Blogs
         .Include(blog => blog.Posts)
             .ThenInclude(p => p.Author)
@@ -39,21 +39,21 @@ public async Task<Blog> GetLatestBlogAsync()
 ### Explanation
 
 - **Short‑circuiting with FirstOrDefaultAsync**: The example intentionally uses `FirstOrDefaultAsync` to illustrate that the query will only return one row, which can be a pitfall if the developer expects multiple results.
-- **Includes that may cause N+1 queries**: By including related entities in the LINQ expression, EF Core issues separate SELECT statements for each blog post and author. This pattern is well‑known and can degrade performance under load.
+- **Eager loading tradeoffs**: `Include`/`ThenInclude` is *not* an N+1 pattern by itself. It usually results in one query (or a small fixed number of queries when using split queries), but it can still be expensive by returning a lot of duplicated data or materializing large graphs.
 
 ## Common "Gotchas"
 
-1. **N+1 query problems** – Including related entities without proper eager loading or using `AsSplitQuery`.
+1. **N+1 query problems** – Most commonly caused by lazy loading or issuing per‑entity queries in a loop; eager loading with `Include` is one way to prevent it.
 2. **Ignoring the translation process** – Assuming a LINQ expression will always translate to SQL, not checking the logger.
 3. **Over‑relying on caching** – Not considering that repeated queries with slight differences may invalidate cached plans.
 4. **Misusing Async methods** – Using synchronous equivalents (`FirstOrDefault`) instead of their async counterparts.
 
 ## Opinionated Advice
 
-- **Always include related entities in a single eager load**, or use `AsSplitQuery` only when necessary, to avoid N+1 issues.
+- **Prevent N+1 intentionally**: use `Include` when you truly need the graph, or project (`Select`) into a read model when you only need a subset.
 - **Log EF Core queries** to verify the SQL that is actually executed and compare it against your LINQ expression.
 - **Profile query‑plan caching**: Monitor repeated query execution times to see if cached plans are being reused.
-- **Use `AsEnumerable()` for further filtering in the database when appropriate**, to prevent unintended translation.
+- **Keep server-side filtering in `IQueryable`** when you want execution in the database; use `AsEnumerable()` only for explicit client-side post-processing after you’ve already narrowed the result set.
 
 ## When Defaults Are Enough
 
