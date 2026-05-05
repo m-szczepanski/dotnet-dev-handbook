@@ -50,7 +50,7 @@ public sealed record ProductListItem(int Id, string Name);
 
 public interface IProductRepository
 {
-    Task<Product> FindAsync(int id);
+    Task<Product?> FindAsync(int id);
     Task<IReadOnlyList<ProductListItem>> GetAllAsync();
 }
 
@@ -63,7 +63,7 @@ public class ProductRepository : IProductRepository
         _context = context;
     }
 
-    public async Task<Product> FindAsync(int id)
+    public async Task<Product?> FindAsync(int id)
     {
         return await _context.Products
             .Include(p => p.PurchaseOrder)
@@ -93,7 +93,7 @@ public class ProductRepository : IProductRepository
 1. **Ignoring N+1 queries** – forgetting to include related entities can cause many round‑trips and performance drops.  
 2. **Mixing infrastructure into business logic** – putting EF Core calls inside services or controllers can make tests brittle.  
 3. **Not validating inputs before database calls** – allowing user input directly into SQL strings opens SQL injection vectors.  
-4. **Over‑using finalizers for disposal** – disposing in a `finally` block instead of implementing `IDisposable` can lead to leaks.
+4. **Over‑using finalizers for disposal** – adding unnecessary finalizers or implementing `IDisposable` incorrectly can cause leaks; disposing in a `finally` block is a valid cleanup pattern.
 
 ## Opinionated Advice
 

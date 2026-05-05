@@ -93,6 +93,6 @@ It excels in scenarios where you need dynamic query building or fine‑grained p
 1. Dapper is best used for raw, parameterised SQL queries that require fine control over the database.  
 2. Always bind parameters safely to avoid SQL injection; never concatenate strings into the query.  
 3. Map results to POCOs that match the column names exactly, or use dynamic types only when absolutely necessary.  
-4. Re‑use `IDbConnection` instances and keep transactions scoped for better performance.  
+4. Create, open, and dispose `IDbConnection` instances per operation while relying on connection pooling; only re-use a connection within a single unit-of-work or transaction scope.  
 5. Consider EF for most CRUD operations; fall back to Dapper only when needed.  
 6. Avoid over‑engineering by using Dapper sparingly; the default EF patterns are often clearer and more maintainable for simple scenarios.

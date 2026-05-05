@@ -12,10 +12,10 @@ Imagine a restaurant kitchen where several chefs are preparing dishes that share
 
 ### How .NET implements locks
 
-- **`System.Threading.Lock`**: A low‑level monitor that can be taken by multiple threads.
-- **`lock` statement**: Guarantees only one thread enters at a time and automatically releases when finished.
+- **`Monitor`**: The runtime primitive used for mutual exclusion over an object reference. Only one thread owns a given monitor at a time, though the owning thread may re-enter it.
+- **`lock` statement**: C# syntax sugar over `Monitor.Enter`/`Monitor.Exit` that acquires the monitor for an object and automatically releases it when the block exits.
 
-### Using `Lock`
+### Using `lock`
 
 ```csharp
 private static readonly object _locker = new();

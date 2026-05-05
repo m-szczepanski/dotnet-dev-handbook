@@ -26,10 +26,12 @@ Imagine your database as a library with millions of books. A poorly written quer
 ## Code Example
 
 ```csharp
-// Example: Optimized Query for Retrieving Products with High Sales
-using (var context = new ApplicationDbContext())
+// Example: Optimized query for retrieving products with high sales
+static async Task<List<Product>> GetHighSalesProductsAsync()
 {
-    var highSalesProducts = await context.Products
+    using var context = new ApplicationDbContext();
+
+    return await context.Products
         .Where(p => p.Sales > 100) // Filter early to reduce data volume
         .OrderByDescending(p => p.Sales) // Sort only after filtering
         .Take(10) // Paginate efficiently
@@ -45,7 +47,7 @@ using (var context = new ApplicationDbContext())
 
 ## Common "Gotchas"
 
-1. **N+1 Queries**: When querying related entities without proper eager loading (e.g., using `Include`), each record can trigger additional queries for its relationships, leading to performance degradation.
+1. **N+1 Queries**: Commonly caused by lazy loading or issuing per-entity queries in a loop; use eager loading (`Include`) or projection when appropriate.
 2. **Unnecessary Joins**: Joining tables when not required or joining on non-indexed columns can slow down query execution.
 3. **Sorting Large Result Sets**: Sorting large datasets without filtering first forces the database to process all records before applying sorting criteria.
 4. **Ignoring Indexes**: Failing to use indexes (or creating them where needed) results in full-table scans, which are extremely inefficient for large tables.

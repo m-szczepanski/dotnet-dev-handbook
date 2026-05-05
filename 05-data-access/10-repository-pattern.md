@@ -29,7 +29,7 @@ Imagine your application as a library where books (data) are stored in various s
 public interface IProductRepository
 {
     Task<IEnumerable<Product>> GetAllAsync();
-    Task<Product> GetByIdAsync(int id);
+    Task<Product?> GetByIdAsync(int id);
     Task AddAsync(Product product);
     Task UpdateAsync(Product product);
     Task DeleteAsync(int id);
@@ -47,17 +47,17 @@ public class EfProductRepository : IProductRepository
 
     public async Task<IEnumerable<Product>> GetAllAsync()
     {
-        return await _context.Products.ToListAsync();
+        return await _context.Set<Product>().ToListAsync();
     }
 
-    public async Task<Product> GetByIdAsync(int id)
+    public async Task<Product?> GetByIdAsync(int id)
     {
-        return await _context.Products.FindAsync(id);
+        return await _context.Set<Product>().FindAsync(id);
     }
 
     public async Task AddAsync(Product product)
     {
-        await _context.Products.AddAsync(product);
+        await _context.Set<Product>().AddAsync(product);
         await _context.SaveChangesAsync();
     }
 

@@ -14,18 +14,18 @@ Before tenants move in, the landlord wants every unit to have its own set of fur
 
 The “seeding” process is like this: you create a *template* (the sample data) once, then every new tenant gets the same furniture plan without having to copy it manually each time.  
 
-In the context of .NET, we use an **asynchronous** `MigrateAsync` call that runs against the database connection string, and we wrap any exceptions so that the migration script can be retried or rolled back safely.
+In the context of .NET, a common approach is to **apply EF Core migrations** with `Database.MigrateAsync()` and then run **idempotent seeding** (so reruns don’t create duplicates).
 
 ## Mechanics Relevant to Developers
 
-### Using MigrateAsync for Safe Database Updates
+### Applying migrations and seeding safely
 
-- The code calls `await _migrationBuilder.MigrateAsync();` **asynchronously**.  
-- Any exceptions thrown during the migration are caught by a `try…catch`, logged, and re‑thrown so that the host can react appropriately.
+- The code calls `await context.Database.MigrateAsync();` to apply pending migrations (this is safe to run repeatedly; applied migrations are tracked).  
+- Seeding logic should be **idempotent** (e.g., check if data exists before inserting) to avoid duplicates.
 
 ### Handling Exceptions Safely
 
-- Wrapping the migration in a catch block ensures that partial failures (e.g., one table is updated but another fails) do not leave the database in an inconsistent state.  
+- Wrapping the *seeding* in a catch block ensures that partial failures (e.g., one insert succeeds but a later insert fails) do not leave the database in an inconsistent state.  
 - Re‑throwing the exception allows the host to decide whether to continue, abort, or attempt a rollback.
 
 ## Code Example
@@ -33,46 +33,60 @@ In the context of .NET, we use an **asynchronous** `MigrateAsync` call that runs
 ```csharp
 // Production-ready example – safely seed sample data
 var connectionString = "your_connection_string";
-await using var connection = new SqlConnection(connectionString);
-await connection.OpenAsync();
-using var transaction = await connection.BeginTransactionAsync();
+await using var context = new ApplicationDbContext(
+    new DbContextOptionsBuilder<ApplicationDbContext>()
+        .UseSqlServer(connectionString)
+        .Options);
+
+// Safe to re-run: applied migrations are tracked in __EFMigrationsHistory
+await context.Database.MigrateAsync();
+
+await using var transaction = await context.Database.BeginTransactionAsync();
 
 try
 {
-    await _migrationBuilder.MigrateAsync(transaction);   // async migration
+    // Idempotent seeding: only insert if missing
+    if (!await context.Products.AnyAsync())
+    {
+        // Seed data here
+        ...
+        await context.SaveChangesAsync();
+    }
+
     await transaction.CommitAsync();
 }
 catch (Exception ex)
 {
     await transaction.RollbackAsync();
     // Log the exception first, then re-throw to propagate it
-    _logger.LogError(ex, "Error during database migration");
+    _logger.LogError(ex, "Error during database seeding");
     throw;   // re-throw so host can react
 }
 ```
 
 ### Explanation
 
-- **`MigrateAsync`**: Asynchronously executes the SQL scripts that create or update tables.  
-- **`transaction`**: Keeps the changes atomic – if any part of the script fails, the entire transaction is rolled back and the database remains consistent.  
-- **`try…catch`**: Catches any exception during the migration, logs it with a descriptive message, then re‑throws the original exception so that the host application receives a clear error signal.
+- **`MigrateAsync`**: Applies any pending EF Core migrations; it’s designed to be safely re-run.
+- **`transaction`**: Keeps the *seeding* changes atomic – if any part fails, the transaction is rolled back and the database remains consistent.
+- **`try…catch`**: Catches any exception during seeding, logs it with a descriptive message, then re‑throws the original exception so that the host application receives a clear error signal.
 
 ## Common "Gotchas"
 
-1. **Running the script twice** – If you run `MigrateAsync` more than once without clearing the history or by manually deleting the migration files, you’ll end up with duplicate records in some tables and missing constraints in others.  
-2. **Ignoring transaction scope** – If the migration code runs outside a transaction, an exception can leave the database half‑updated and vulnerable to corruption.  
+1. **Non-idempotent seeding** – `Database.MigrateAsync()` is safe to run multiple times; duplicate rows usually come from seeding code that inserts unconditionally.
+2. **Ignoring transaction scope** – If the seeding code runs outside a transaction, an exception can leave the database half‑updated and vulnerable to corruption.  
 3. **Not catching the right exceptions** – Catching only generic `Exception` types masks domain‑specific errors that could be handled differently.  
 4. **Forgetting to log** – Without proper logging you won’t know which part of the script failed when the migration rolls back.
 
 ## Opinionated Advice
 
-- **Always wrap migrations in a transaction** – It keeps your database consistent and makes rollbacks predictable.  
+- **Make seeding idempotent** – Prefer existence checks (or upserts) so running the seed multiple times is safe.  
+- **Wrap complex seeding in a transaction** – It keeps the seed atomic and makes failures easier to roll back.
 - **Use descriptive logging** – Log not just “Error” but the exact step that failed (e.g., “Failed to migrate CreateTableUsers”).  
 - **Keep migration files DRY** – Reuse common script snippets instead of duplicating logic in multiple migration classes.  
 
 ## When Defaults Are Enough
 
-- **Most short‑lived seeding scripts**: If your sample data is very small and only needs a few inserts, the default `MigrateAsync` call can be sufficient.  
+- **Most short‑lived seeding scripts**: If your sample data is very small and only needs a few inserts, `Database.MigrateAsync()` plus a simple idempotent seed is usually sufficient.  
 - **Use built‑in sample data**: For quick demos, many ORMs (e.g., Entity Framework Core) provide sample data that you can insert with minimal custom code.
 
 ## Boundaries of Overkill
@@ -82,13 +96,13 @@ catch (Exception ex)
 
 ## Summary
 
-Seeding data safely means loading sample records into a database in a way that keeps it consistent, atomic, and recoverable. By using `MigrateAsync` within an asynchronous transaction and handling exceptions explicitly, developers can add default or demo data without risking corruption or duplicate records.  
+Seeding data safely means applying migrations and loading sample records in a way that keeps the database consistent, atomic, and recoverable. By using `Database.MigrateAsync()` and idempotent seeding within a transaction (when appropriate), developers can add default or demo data without risking corruption or duplicate records.  
 
 ### Take-home Value
 
-1. Use `MigrateAsync` to load sample data safely.  
-2. Wrap migrations in an async transaction for atomic updates.  
+1. Use `Database.MigrateAsync()` to apply migrations safely.  
+2. Wrap multi-step seeding in an async transaction for atomic updates.  
 3. Catch and log exceptions before re‑throwing them.  
-4. Avoid running the seeding script more than once unless you intentionally clear migration history.  
+4. Make seeding idempotent so reruns don’t create duplicates.  
 5. Prefer built‑in or minimal custom scripts for quick demos.  
 6. Don’t over‑engineer small, short‑lived seeding tasks with nested transactions or manual cleanup.

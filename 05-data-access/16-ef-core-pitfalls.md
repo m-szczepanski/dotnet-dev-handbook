@@ -13,7 +13,7 @@ Think of your EF Core queries as a recipe. A recipe can look perfect on paper bu
 ### How queries are translated into SQL
 
 - **Translation happens before execution**: EF Core translates LINQ expressions into SQL behind the scenes.
-- **The generated SQL can be inspected** via `LoggerFactory` or the `dotnet ef database logger`.
+- **The generated SQL can be inspected** via EF Core logging (`ILoggerFactory` / `LogTo(...)`) or by calling `ToQueryString()` on a query.
 - **Query‑plan caching** means repeated identical queries run against the same context may reuse cached plans, affecting performance.
 
 ### The importance of query‑plan caching
