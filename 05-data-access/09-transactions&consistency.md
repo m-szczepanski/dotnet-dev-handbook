@@ -1,4 +1,4 @@
-# Chapter 5: Transactions & Consistency
+# 09: Transactions & Consistency
 
 ## What problem does this solve?
 

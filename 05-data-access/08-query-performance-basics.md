@@ -1,4 +1,4 @@
-# Chapter 5: Data Access
+# 08: Query performance basics
 
 ## What problem does this solve?
 

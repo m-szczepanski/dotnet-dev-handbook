@@ -26,7 +26,8 @@ You still get navigation (the data), but without the overhead of pre‑written r
 
 ### Dynamic Query Building
 
-- Use `DbCommand` or `SqlConnection` to build your query as a string.
+- For raw ADO.NET, create commands via `DbConnection.CreateCommand()` (because `DbCommand` is abstract).
+- For Dapper, call `QueryAsync<T>` / `ExecuteAsync` directly on an `IDbConnection`.
 - Pass parameters safely with `@paramName`.
 - Execute with `.Execute()` for DML, or `.Query<T>()` for result sets.
 
@@ -46,29 +47,23 @@ static async Task<List<Customer>> GetCustomersAsync(IDbConnection db)
         FROM Customers
         WHERE City = @City";
 
-    using var cmd = new DbCommand(sql, db);
-
-    // Safe parameter binding – no SQL injection risk
-    cmd.Parameters.Add("@City", DbType.String).Value = "Seattle";
-    
-    await cmd.ExecuteAsync();
-
-    return await cmd.ReadListAsync<Customer>();
+  // Dapper: parameterized query (no string concatenation)
+  var customers = await db.QueryAsync<Customer>(sql, new { City = "Seattle" });
+  return customers.ToList();
 }
 ```
 
 ### Explanation
 
 - The query string is built explicitly so the developer can see exactly what SQL runs on the database.
-- Parameters are added safely (`DbCommand` parameters) to avoid injection attacks, a common gotcha when using raw SQL.
-- `ReadListAsync<T>()` maps each row to a strongly‑typed `Customer` object that matches the column names in the SQL string.  
-  This is a practical choice because it keeps the data shape consistent while still being lightweight.
+- Dapper binds parameters safely from an anonymous object (e.g., `new { City = "Seattle" }`), avoiding SQL injection without manual command plumbing.
+- `QueryAsync<T>()` returns an `IEnumerable<T>`; materialize it with `ToList()` when you want a concrete list.
 
 ## Common "Gotchas"
 
 1. **SQL Injection Risk** – Always parameterise queries when using raw SQL; Dapper will not protect you from un‑parameterised strings.
 2. **No Strongly‑Typed Result Mapping** – Dapper returns anonymous types or POCOs that must match the query columns exactly; mismatches can cause runtime errors or silent data loss.
-3. **Not Using a Connection Pool** – If your code does not use a shared connection, consider reusing `IDbConnection` instances to improve performance.
+3. **Misunderstanding connection pooling** – Prefer opening connections late and closing early; ADO.NET connection pooling makes this cheap. Avoid keeping a single `IDbConnection` open and shared across threads.
 4. **Ignoring Transaction Scoping** – When using raw SQL in a transaction context, ensure the connection is opened inside a `using` block that matches the transaction scope.
 
 ## Opinionated Advice

@@ -56,7 +56,9 @@ public bool TryUpdateProductPrice(Product product, decimal price)
     return true;
 }
 
-> *`TryEnter` lets you decide whether to continue and release the lock yourself, which can be useful in asynchronous code.*
+```
+
+> *`TryEnter` lets you decide whether to continue and release the lock yourself. This is still a synchronous primitive (it does not make code safe across `await` boundaries).*
 
 ## Code Example
 
@@ -66,6 +68,7 @@ using System.Threading;
 class ProductService
 {
     private static readonly object _locker = new();
+    private static readonly SemaphoreSlim _gate = new(1, 1);
 
     // This method is thread‑safe because of the monitor guard.
     public void UpdateProductPrice(Product product, decimal price)
@@ -79,27 +82,27 @@ class ProductService
         }
     }
 
-    // If you're writing an async method, you must be careful about exceptions.
-    public Task<bool> TryUpdateProductPriceAsync(Product product,
-                                                decimal price,
-                                                CancellationToken token)
+    // Async code should not use `lock`/`Monitor` across `await` boundaries.
+    // Use an async-compatible primitive like SemaphoreSlim instead.
+    public async Task<bool> TryUpdateProductPriceAsync(Product product,
+                                                      decimal price,
+                                                      CancellationToken token)
     {
-        if (product == null) return Task.FromResult(false);
+        if (product == null) return false;
 
-        lock (_locker)
+        // "Try" semantics: return immediately if the gate is taken.
+        if (!await _gate.WaitAsync(0, token))
+            return false;
+
+        try
         {
-            try
-            {
-                // Business logic that updates the product's price
-                ...
-                return Task.FromResult(true);
-            }
-            catch (Exception e)
-            {
-                // You must release the monitor guard manually.
-                Monitor.Exit(_locker);
-                throw;   // Re‑throw original exception so caller can handle it
-            }
+            // Business logic that updates the product's price
+            ...
+            return true;
+        }
+        finally
+        {
+            _gate.Release();
         }
     }
 
@@ -126,7 +129,7 @@ class ProductService
 ### Explanation
 
 - **`lock` vs `TryEnter`**: `lock` guarantees a critical section but can block other threads. `Monitor.TryEnter` lets you check if the lock is free and decide whether to proceed or return immediately.
-- **Exception handling**: In async methods, you must manually call `Monitor.Exit(_locker)` in a `finally` block; otherwise, an exception would prevent the lock from being released, causing a deadlock or race condition.
+- **Exception handling**: `lock` always releases the monitor (even when exceptions occur). If you use `Monitor.Enter` / `Monitor.TryEnter` directly, always release it in a `finally` block.
 - **Real‑world context**: These patterns are used when updating shared data (e.g., a product’s price) across multiple services or threads.
 
 ## Common "Gotchas"
@@ -134,11 +137,12 @@ class ProductService
 1. **Ignoring exceptions in `lock` blocks** – If an exception occurs, the lock is released automatically, but you may lose state if you don’t handle it.
 2. **Overusing locks on static collections** – Locking a collection while iterating can lead to race conditions and deadlocks.
 3. **Neglecting thread‑safe alternatives (e.g., `ConcurrentBag`)** – Using non‑concurrent collections in concurrent scenarios can corrupt data.
-4. **Not releasing a monitor guard manually** – In async methods, failing to release the lock can cause deadlocks.
+4. **Awaiting inside a lock/monitor** – `lock`/`Monitor` are not designed to be held across `await`. If you need to guard async work, use `SemaphoreSlim` (or another async-compatible primitive).
 
 ## Opinionated Advice
 
-- **Use `lock` for simple, short‑lived critical sections** – Prefer it over `Monitor.TryEnter` unless you have specific reasons (e.g., asynchronous code).
+- **Use `lock` for simple, short‑lived critical sections** – Prefer it over `Monitor.TryEnter` unless you specifically need “try” semantics (fail fast instead of waiting).
+- **For async workflows, prefer `SemaphoreSlim`** – It composes naturally with `await` and avoids holding a monitor across asynchronous boundaries.
 - **Avoid static collections without locks in concurrent scenarios** – If you must use a collection that isn’t thread‑safe, wrap all operations with a lock.
 - **Profile memory usage regularly** – Locks can impact performance; monitor CPU and GC usage when adding concurrency logic.
 
@@ -159,7 +163,7 @@ Handling concurrency in .NET requires understanding how locks protect shared dat
 ### Take-home Value
 
 1. Understand whether an operation is safe for concurrent execution.  
-2. Use `lock` statements for short, critical sections; prefer `TryEnter` in asynchronous methods.  
+2. Use `lock` statements for short, synchronous critical sections; use `SemaphoreSlim` (or similar) for async workflows.  
 3. Be cautious about static collections without manual lock release in concurrent scenarios.  
 4. Implement thread‑safe alternatives such as `ConcurrentBag` when needed.  
 5. Handle exceptions carefully in `lock` blocks to avoid race conditions or deadlocks.  

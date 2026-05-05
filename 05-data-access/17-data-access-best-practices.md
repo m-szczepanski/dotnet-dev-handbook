@@ -46,7 +46,7 @@ Imagine the database as a library with thousands of books (records).
 
 ```csharp
 // Production-ready example using EF Core 8+ (Modern .NET)
-public interface IProductRepository : IDisposable
+public interface IProductRepository
 {
     Task<Product> FindAsync(int id);
     Task<IEnumerable<Product>> GetAllAsync();
@@ -75,8 +75,6 @@ public class ProductRepository : IProductRepository
             .Select(p => new Product { Id = p.Id, Name = p.Name })
             .ToListAsync();
     }
-
-    public void Dispose() => _context?.Dispose();
 }
 ```
 
@@ -85,7 +83,7 @@ public class ProductRepository : IProductRepository
  **Interface definition**: Keeps the contract decoupled from EF Core internals.  
  **EF Core query pattern**: Uses `.Include` for eager loading of related entities (`PurchaseOrder`).  
  **Projection optimization**: Returns only `Id` and `Name` instead of the full entity, reducing payload size.  
- **Dispose** ensures resources are released correctly.
+ **Lifetime**: In typical ASP.NET Core apps, `ApplicationDbContext` is registered as *scoped* and is disposed by the DI container. The repository should not dispose an injected context.
 
 ## Common "Gotchas"
 
@@ -96,10 +94,10 @@ public class ProductRepository : IProductRepository
 
 ## Opinionated Advice
 
- **Always wrap EF Core contexts in `using` or implement `IDisposable`.**  
+ **If you create a `DbContext` yourself, wrap it in `using`. If it’s injected, let DI manage its disposal.**  
  **Use repository interfaces to keep data‑access logic isolated from the rest of the application.**  
  **Profile query execution plans** to catch unexpected performance hits early.  
- **Keep all database connections open in a single place** (e.g., a singleton DbContext) and reuse it across services.
+ **Keep `DbContext` short‑lived** (scoped per request/operation). For background work, prefer `IDbContextFactory<TContext>`.
 
 ## When Defaults Are Enough
 
@@ -108,7 +106,7 @@ public class ProductRepository : IProductRepository
 
 ## Boundaries of Overkill
 
- **Over‑engineering caching** – adding manual caches or custom cache abstractions when the inbuilt `IOptionsSnapshot<…>` or a single shared DbContext is enough.  
+ **Over‑engineering caching** – adding manual caches or custom cache abstractions before you’ve measured a real bottleneck.  
  **Premature finalizer use**: Adding `~` operators for disposal that isn’t truly necessary can introduce unnecessary complexity and bugs.
 
 ## Summary

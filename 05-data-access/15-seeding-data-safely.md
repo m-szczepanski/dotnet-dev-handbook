@@ -34,14 +34,17 @@ In the context of .NET, we use an **asynchronous** `MigrateAsync` call that runs
 // Production-ready example – safely seed sample data
 var connectionString = "your_connection_string";
 await using var connection = new SqlConnection(connectionString);
-await using var transaction = connection.BeginTransactionAsync();
+await connection.OpenAsync();
+using var transaction = await connection.BeginTransactionAsync();
 
 try
 {
     await _migrationBuilder.MigrateAsync(transaction);   // async migration
+    await transaction.CommitAsync();
 }
 catch (Exception ex)
 {
+    await transaction.RollbackAsync();
     // Log the exception first, then re-throw to propagate it
     _logger.LogError(ex, "Error during database migration");
     throw;   // re-throw so host can react

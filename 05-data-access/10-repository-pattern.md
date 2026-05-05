@@ -1,4 +1,4 @@
-# Chapter 5: Repository Pattern
+# 10: Repository pattern
 
 ## What problem does this solve?
 
